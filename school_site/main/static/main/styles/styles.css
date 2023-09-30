@@ -1,0 +1,55 @@
+
+body {
+    background : white;
+}
+
+aside {
+    float : left;
+    background : blue;
+    width : 20%;
+    padding : 2.5%;
+    height : 100vh;
+    color : red;
+    border-right : 5px solid #4d4d4d;
+}
+
+aside h3 {
+    margin-top : 50px;
+    font-size : 25px;
+    font-weight : bold;
+}
+
+aside ul {
+    list-style : none;
+}
+
+aside ul li {
+    color : red;
+    display : block;
+    margin-top : 20px;
+    transition : transform .6s ease;
+}
+
+aside ul li:hover, aside ul a:hover  {
+    color : green;
+    text-decoration : none;
+    transform : scale(1.05);
+}
+
+div.container {
+    float : left;
+    margin-top : 100px;
+    margin-left : 5px;
+    width : 75%;
+}
+
+footer {
+    height : 100px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
