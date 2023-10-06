@@ -1,55 +1,103 @@
-
 body {
-    background : white;
+  margin: 0;
 }
 
-aside {
-    float : left;
-    background : blue;
-    width : 20%;
-    padding : 2.5%;
-    height : 100vh;
-    color : red;
-    border-right : 5px solid #4d4d4d;
+ul.navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
 }
 
-aside h3 {
-    margin-top : 50px;
-    font-size : 25px;
-    font-weight : bold;
+ul.navigation li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 
-aside ul {
-    list-style : none;
+ul.navigation li a.active {
+  background-color: #04AA6D;
+  color: white;
 }
 
-aside ul li {
-    color : red;
-    display : block;
-    margin-top : 20px;
-    transition : transform .6s ease;
+ul.navigation li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
 }
 
-aside ul li:hover, aside ul a:hover  {
-    color : green;
-    text-decoration : none;
-    transform : scale(1.05);
+div.container{
+    margin-left : 25%;
+    padding: 1px 16px;
+    width : 80%;
+    min-height : 1000px;
+
+    background-color: #dee4ef;
 }
 
-div.container {
-    float : left;
-    margin-top : 100px;
-    margin-left : 5px;
-    width : 75%;
+div.content_cotainer{
+    margin-top : 25px;
 }
 
-footer {
-    height : 150px;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
+div.text_home{
+    background-color: #dee4ef;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 500px;
+  position: relative;
+  /* margin: auto; */
+  background : #95b4ed;
+  margin : 15px;
+  float : right;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

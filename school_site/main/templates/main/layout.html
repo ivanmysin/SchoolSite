@@ -8,28 +8,33 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <aside>
-        <h3>Навигация</h3>
-        <ul>
-            <a href={% url "home" %}> <li>Главная</li> </a>
-            <a href={% url "orgs" %}> <li>Организаторы</li> </a>
-            <a href={% url "dates" %}> <li>Ключевые даты</li> </a>
-            <a href={% url "lodging" %}> <li>Проживание</li> </a>
-            <a href={% url "payment" %}> <li>Оргвзнос</li> </a>
-            <a href={% url "contacts" %}> <li>Контакты</li> </a>
-            <a href={% url "send_application" %}> <li>Подать заявку</li>  </a>
+      <!-- <h3>Навигация</h3> -->
+        <ul class="navigation">
+            <li><a href={% url "home" %}> Главная </a></li>
+            <li><a href={% url "orgs" %}> Организаторы</a></li>
+            <li><a href={% url "lectors" %}> Лектора </a> </li>
+            <li><a href={% url "partners" %}> Партнеры</a></li>
+            <li><a href={% url "dates" %}> Ключевые даты </a></li>
+            <li><a href={% url "lodging" %}> Размещение </a></li>
+            <li><a href={% url "payment" %}> Оргвзнос </a></li>
+            <li><a href={% url "contacts" %}> Контакты </a></li>
+            <li><a href={% url "history" %}> История </a></li>
+            <li><a href={% url "faqs" %}> ЧаВо </a></li>
+            <li><a href={% url "send_application" %} id=send_link> Подать заявку  </a> </li>
         </ul>
-    </aside>
-    <main>
+
+
         <div class="container">
+            <div class="header">
+                <h1> Летняя научная школа "Введение в нейробиологию внимания и памяти им. О.С. Виноградовой" </h1>
+            </div>
+            <div class="content_cotainer">
             {% block content %}
             {% endblock %}
+            </div>
         </div>
 
-        <footer>
-
-        </footer>
-
-    </main>
+    <!-- <footer>
+        </footer> -->
 </body>
 </html>

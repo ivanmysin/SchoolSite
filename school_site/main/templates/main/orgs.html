@@ -1,0 +1,20 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Организаторы
+{% endblock %}
+
+{% block content %}
+    <table>
+        {% for org in orgs %}
+        <tr>
+            <th>{{ org.photo }}</th>
+            <th>{{org.name}}</th>
+            <th>{{org.surname}}</th>
+            <th>{{org.role}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
