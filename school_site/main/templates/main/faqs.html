@@ -8,8 +8,9 @@
 {% block content %}
     {% for q, a in faqs %}
         <div>
-            <p> {{ q }} </p>
+            <p> <span style="font-weight:bold"> {{ q }} </span></p>
             <p> {{ a }} </p>
+            </br>
         </div>
     {% endfor %}
 {% endblock %}
