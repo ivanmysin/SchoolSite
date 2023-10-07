@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    {% for title in tiltes  %}
+    <h2>  {{ title }} </h2>
+    <p> Тут слайдер с фотокграфиями со Школы </p>
+    <p> Тут вставка кода с видео лекций </p>
+    {% endfor %}
+{% endblock %}

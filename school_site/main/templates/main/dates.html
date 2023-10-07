@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Ключевые даты
+{% endblock %}
+
+{% block content %}
+    <h2> Ключевые даты</h2>
+    {% for date  in dates %}
+        <p> {{ date }} </p>
+
+    {% endfor %}
+{% endblock %}

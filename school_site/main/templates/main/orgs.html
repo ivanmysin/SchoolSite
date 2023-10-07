@@ -9,10 +9,14 @@
     <table>
         {% for org in orgs %}
         <tr>
-            <th>{{ org.photo }}</th>
-            <th>{{org.name}}</th>
-            <th>{{org.surname}}</th>
-            <th>{{org.role}}</th>
+            {% if org.photo == "" %}
+                <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
+            {% else %}
+                <th>   <img src="{% static 'main/images/orgs_photo/'%}"{{no_photo.jpeg}} style="width:100%"> </th>
+            {% endif %}
+            <th>   {{org.name}} </th>
+            <th>   {{org.surname}} </th>
+            <th> <span class="small"> {{org.role}} </span> </th>
         </tr>
         {% endfor %}
     </table>

@@ -101,3 +101,7 @@ div.text_home{
   from {opacity: .4}
   to {opacity: 1}
 }
+
+span.small{
+    font-size : 10pt;
+}
