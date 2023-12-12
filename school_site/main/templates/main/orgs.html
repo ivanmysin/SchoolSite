@@ -6,19 +6,23 @@
 {% endblock %}
 
 {% block content %}
+    {% if orgs %}
     <table>
         {% for org in orgs %}
         <tr>
-            {% if org.photo == "" %}
+            {% if org.path_to_photo == "" %}
                 <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
             {% else %}
-                <th>   <img src="{% static 'main/images/orgs_photo/'%}"{{no_photo.jpeg}} style="width:100%"> </th>
+                <th>   <img src="{% static 'main/images/orgs_photo/'%}"{{org.path_to_photo}} style="width:100%"> </th>
             {% endif %}
-            <th>   {{org.name}} </th>
             <th>   {{org.surname}} </th>
+            <th>   {{org.name}} </th>
+            <th>   {{org.patronymic}} </th>
             <th> <span class="small"> {{org.role}} </span> </th>
         </tr>
         {% endfor %}
     </table>
-
+    {% else %}
+    <p><h3> Ни одного организатора не добавлено </h3></p>
+    {% endif %}
 {% endblock %}

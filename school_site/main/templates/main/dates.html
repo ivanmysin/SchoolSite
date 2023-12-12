@@ -8,7 +8,7 @@
 {% block content %}
     <h2> Ключевые даты</h2>
     {% for date  in dates %}
-        <p> {{ date }} </p>
+        <p> {{ date.date }} -  {{ date.date_desription }}</p>
 
     {% endfor %}
 {% endblock %}

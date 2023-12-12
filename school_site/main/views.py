@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import os
+from .models import Organizators, Lectors, Partners, KeyDates
 # Create your views here.
 
 
@@ -26,36 +27,22 @@ def index(request):
     return render(request, 'main/index.html', data4render)
 
 def orgs(request):
-    data4render = []
-    for i in range(15):
-        org = {
-            "name" : 'Имя',
-            "surname" : 'Фамилия Отчество',
-            "role" : 'За что человек отвечает',
-            "photo" : '',
-        }
-
-        if request.path.find('lectors') != -1:
-            org['role'] = 'Регалии и место работы'
-
-        if request.path.find('partners') != -1:
-            org['role'] = ''
-            org['name'] = 'Название компании'
-            org['surname'] = 'Опрсание компании, чем она занимается'
-
-
-
-        data4render.append(org)
-
-
-
+    data4render = Organizators.objects.filter(is_show=True).order_by("order") #
     return render(request, 'main/orgs.html', {'orgs' : data4render})
 
+def lectors(request):
+    data4render = Lectors.objects.filter(is_show=True).order_by("order") #
+    return render(request, 'main/lectors.html', {'lectors' : data4render})
+
+def partners(request):
+    data4render = Partners.objects.filter(is_show=True).order_by("order")
+    return render(request, 'main/partners.html', {'partners' : data4render})
+
+
+
 def dates(request):
-    dates = {
-        'dates' : ['01.06.2023 - Срок полачи заявки', '20.06.2023 - Объявление результатов отбора', '06.08.2023 - 18.08.2023 - Проведение школы'],
-    }
-    return(render(request, 'main/dates.html', dates))
+    dates = KeyDates.objects.filter(is_show=True).order_by("date")
+    return(render(request, 'main/dates.html', {'dates' : dates}))
 
 def text(request):
 
