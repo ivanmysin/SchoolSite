@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import os
-from .models import Organizators, Lectors, Partners, KeyDates
-# Create your views here.
+from .models import Organizators, Lectors, Partners, KeyDates, Faqs, TextPage, QualifyingTasks, ApplicationsForParticipation
+
 
 
 def index(request):
@@ -47,51 +47,64 @@ def dates(request):
 def text(request):
 
     path = request.path.split(" ")[0][1:]
-    title = 'Заголовок страницы'
-    text = 'Содержание страницы'
 
-    if path == 'send_application':
-        title = 'Отравить заявку'
-        text = 'Срок отправки заявок окончек'
 
-    elif path == 'contacts':
-        title = 'Наши контакты'
-        text = """
-         Почта hippicampus.psn@gmail.com  
-         Сообщество в ВК vk.com/labson
-        """
-    elif path == 'payment':
-        title = 'Оргвзнос'
-        text = """ Участие в школе стоит 4000  руб.
-         Оргвзнос включает проживание в общежитии, кофе-брейки, фуршет по поводу открытия и закрытия школы"""
+    if request.method == "POST" and path == "accepted_application":
 
-    elif path == 'lodging':
-        title = 'Проживание в Пущино'
-        text = """ Участникам на время школы предоставляется место в студенческом общежитии биотехнологического факультета МГУ"""
+        accepted_data = {}
+        qualifying_answers = ""
+        for key, val in request.POST.items():
+
+            if key.find("answer_for_task_") != -1:
+                qualifying_answers = key + ":  " + qualifying_answers + "\n################\n" + val
+
+            elif key == "csrfmiddlewaretoken":
+                continue
+            else:
+                accepted_data[key] = val
+
+
+        accepted_data["qualifying_answers"] = qualifying_answers
+        accepted_form = ApplicationsForParticipation(**accepted_data)
+
+
+        # if accepted_form.is_valid():
+        accepted_form.save()
+
+        texts_page = [{
+            "title" : "Форма успешно отправлена!",
+            "text" : "",
+        },]
+    else:
+        texts_page = TextPage.objects.filter(is_show=True, page=path).order_by("order")
+
 
     data = {
-        'title' : title,
-        'text' : text,
+        "texts_page" : texts_page,
     }
     return (render(request, 'main/text.html', data))
 
 
 
-def history(request):
-
-    data = {
-        'tiltes' : ['Школа 2023', 'Школа 2022', 'Школа 2021', 'Школа 2018'],
-        'schools' : [],
-    }
-
-    return (render(request, 'main/history.html', data))
+# def history(request):
+#
+#     data = {
+#         'tiltes' : ['Школа 2023', 'Школа 2022', 'Школа 2021', 'Школа 2018'],
+#         'schools' : [],
+#     }
+#
+#     return (render(request, 'main/history.html', data))
 
 def faqs(request):
-    questions = ['Кто может участвовать?', 'Что взять с собой?', 'Куда приезжать?', 'Где проходит школа?', 'Сколько это стоит?']
-    answers = ['Заявку может подать любой в совершеннолетний', 'Ноутбук, купальные пренадлежности, хорошее настроение', 'Пущино, В 20А', 'Пущино, Институтская 3',  'ПОбробности в разделе Оргвзнос']
-
-    faqs = list(zip(questions, answers))
+    faqs = Faqs.objects.filter(is_show=True).order_by("order")
     data = {
         'faqs' : faqs,
     }
     return (render(request, 'main/faqs.html', data))
+
+def send_application(request):
+    tasks = QualifyingTasks.objects.filter(is_show=True).order_by("order")
+    data = {
+        'tasks': tasks,
+    }
+    return (render(request, 'main/send_application.html', data))

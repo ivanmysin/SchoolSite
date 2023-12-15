@@ -2,10 +2,15 @@
 {% load static %}
 
 {% block title %}
-    {{ title }}
+
 {% endblock %}
 
+
 {% block content %}
-    <h2>  {{ title }} </h2>
-    <p> {{ text }} </p>
+    {% for text_block in texts_page %}
+        <div>
+            <h2>  {{ text_block.title }} </h2>
+            <p> {{ text_block.text }} </p>
+        </div>
+    {% endfor %}
 {% endblock %}

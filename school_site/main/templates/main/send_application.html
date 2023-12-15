@@ -1,0 +1,55 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+
+{% block content %}
+    <form method="post" action="{% url "accepted_application" %}">
+        {% csrf_token %}
+        <div> <input type="text", placeholder="Имя", name="name">  <br> </div>
+        <div> <input type="text", placeholder="Фамилия", name="surname"><br>  </div>
+        <div> <input type="text", placeholder="Отчество", name="patronymic"><br>  </div>
+        <div> <input type="text", placeholder="Почта", name="email"><br> </div>
+        <div> <input type="text", placeholder="Телефон", name="phone"><br> </div>
+        <div> <input type="text", placeholder="Где вы учитесь?", name="university"><br> </div>
+
+        <div> <input type="text", placeholder="Стадия обучения", name="education_stage"><br> </div>
+        <div>
+            <label for="form_of_participation"> Выберете форму участия</label>
+            <select id="form_of_participation" name="form_of_participation">
+                <option value="Хакатон">Хакатон</option>
+                <option value="Экспериментальная практика">Экспериментальная практика</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="expirience"> Каков ваш опыт в нейронауке? </label>
+            <textarea id="expirience" name="expirience">
+                Опыт
+            </textarea>
+        </div>
+
+        <div>
+            <label for="about_participant"> Расскажите немного о себе </label>
+            <textarea id="about_participant" name="about_participant">
+                Мотивационное письмо
+            </textarea>
+        </div>
+
+        {% for task in tasks %}
+        <div>
+            <h4> {{ task.title }}</h4>
+            <p>
+                {{ task.text }}
+            </p>
+            <textarea name="answer_for_task_{{forloop.counter}}"> Ответ </textarea> <br>
+        </div>
+        {% endfor %}
+
+        <button type="submit"> Отправить </button>
+    </form>
+{% endblock %}

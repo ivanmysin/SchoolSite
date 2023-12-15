@@ -6,10 +6,10 @@
 {% endblock %}
 
 {% block content %}
-    {% for q, a in faqs %}
+    {% for faq in faqs %}
         <div>
-            <p> <span style="font-weight:bold"> {{ q }} </span></p>
-            <p> {{ a }} </p>
+            <p> <span style="font-weight:bold"> {{ faq.question }} </span></p>
+            <p> {{ faq.answer }} </p>
             </br>
         </div>
     {% endfor %}
