@@ -27,7 +27,16 @@ def index(request):
     return render(request, 'main/index.html', data4render)
 
 def orgs(request):
-    data4render = Organizators.objects.filter(is_show=True).order_by("order") #
+    data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
+
+
+    print(data4render[0])
+    for data in data4render:
+        if os.path.isfile(data["path_to_photo"]):
+            img_file = os.path.split(data["path_to_photo"])[-1]
+        else:
+            img_file = "no_photo.jpeg"
+        data["path_to_photo"] = img_file
     return render(request, 'main/orgs.html', {'orgs' : data4render})
 
 def lectors(request):

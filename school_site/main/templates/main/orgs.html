@@ -13,7 +13,7 @@
             {% if org.path_to_photo == "" %}
                 <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
             {% else %}
-                <th>   <img src="{% static 'main/images/orgs_photo/'%}"{{org.path_to_photo}} style="width:100%"> </th>
+                <th>   <img src="{% static 'main/images/orgs_photo/'%}{{org.path_to_photo}}" style="width:100%"> </th>
             {% endif %}
             <th>   {{org.surname}} </th>
             <th>   {{org.name}} </th>

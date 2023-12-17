@@ -6,7 +6,7 @@ class Organizators(models.Model):
     name = models.CharField('Имя', max_length=50)
     surname = models.CharField('Фамилия', max_length=50)
     patronymic = models.CharField('Отчество', max_length=50)
-    path_to_photo = models.CharField('Путь к фото', max_length=250, blank=True, default="")
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/orgs_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', blank=True, default=True)
 
