@@ -69,31 +69,37 @@ def text(request):
 
 
     if request.method == "POST" and path == "accepted_application":
+        try:
+            accepted_data = {}
+            qualifying_answers = ""
+            for key, val in request.POST.items():
 
-        accepted_data = {}
-        qualifying_answers = ""
-        for key, val in request.POST.items():
+                if key.find("answer_for_task_") != -1:
+                    qualifying_answers = key + ":  " + qualifying_answers + "\n################\n" + val
 
-            if key.find("answer_for_task_") != -1:
-                qualifying_answers = key + ":  " + qualifying_answers + "\n################\n" + val
-
-            elif key == "csrfmiddlewaretoken":
-                continue
-            else:
-                accepted_data[key] = val
-
-
-        accepted_data["qualifying_answers"] = qualifying_answers
-        accepted_form = ApplicationsForParticipation(**accepted_data)
+                elif key == "csrfmiddlewaretoken":
+                    continue
+                else:
+                    accepted_data[key] = val
 
 
-        # if accepted_form.is_valid():
-        accepted_form.save()
+            accepted_data["qualifying_answers"] = qualifying_answers
+            accepted_form = ApplicationsForParticipation(**accepted_data)
 
-        texts_page = [{
-            "title" : "Форма успешно отправлена!",
-            "text" : "",
-        },]
+
+            # if accepted_form.is_valid():
+            accepted_form.save()
+
+            texts_page = [{
+                "title" : "Ваша заявка успешно отправлена!",
+                "text" : "",
+            },]
+
+        except:
+            texts_page = [{
+                "title" : "Форма содержит ошибки!",
+                "text" : "",
+            },]
     else:
         texts_page = TextPage.objects.filter(is_show=True, page=path).order_by("order")
 
