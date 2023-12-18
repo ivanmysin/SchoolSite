@@ -11,14 +11,14 @@
         {% for par in partners %}
         <tr>
             {% if par.path_to_photo == "" %}
-                <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
+                <th>   <img src="{% static 'main/images/partners_photo/no_photo.jpeg'%}" style="width:100%"> </th>
             {% else %}
-                <th>   <img src="{% static 'main/images/orgs_photo/'%}"{{par.path_to_photo}} style="width:100%"> </th>
+                <th>   <img src="{% static 'main/images/partners_photo/'%}{{par.path_to_photo}}" style="width:100%"> </th>
             {% endif %}
 
-            <th> <h2> {{lec.organization_name}} </h2> </th>
-            <th> <span class="small"> {{lec.role}} </span> </th>
-            <th> <span class="small"> {{lec.organization_description}} </span> </th>
+            <th> <h2> {{par.organization_name}} </h2> </th>
+            <th> <span class="small"> {{par.role}} </span> </th>
+            <th> <span class="small"> {{par.organization_description}} </span> </th>
         </tr>
         {% endfor %}
     </table>

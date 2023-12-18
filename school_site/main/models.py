@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 
 # Create your models here.
 class Organizators(models.Model):
@@ -13,9 +14,15 @@ class Organizators(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.surname, self.name, self.patronymic)
 
+    # @property
+    # def photo_preview(self):
+    #     if self.path_to_photo:
+    #         return mark_safe('<img src="{}" width="300" height="300" />'.format(self.path_to_photo.url))
+    #     return ""
     class Meta:
         verbose_name = 'Оганизатор'
         verbose_name_plural = 'Оганизаторы'
+
 
 
 class Lectors(models.Model):
@@ -26,7 +33,7 @@ class Lectors(models.Model):
     degree = models.CharField('Ученая степень/Ученое звание', max_length=50, blank=True)
 
 
-    path_to_photo = models.CharField('Путь к фото', max_length=250, blank=True, default="")
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/lectors_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
 
@@ -42,7 +49,7 @@ class Partners(models.Model):
     role = models.CharField('Роль в проведении школы', max_length=250, blank=True)
     organization_description = models.TextField('Описание организации', max_length=1000, blank=True)
 
-    path_to_photo = models.CharField('Путь к фото', max_length=250, blank=True, default="")
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
 
@@ -93,7 +100,7 @@ class TextPage(models.Model):
     title = models.CharField('Заголовок', max_length=250, blank=False)
     text = models.TextField('Текст', blank=False)
     page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
-    path_to_photo = models.CharField('Путь к фото', max_length=250, blank=True, default="")
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
 

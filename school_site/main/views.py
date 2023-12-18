@@ -29,8 +29,6 @@ def index(request):
 def orgs(request):
     data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
 
-
-    print(data4render[0])
     for data in data4render:
         if os.path.isfile(data["path_to_photo"]):
             img_file = os.path.split(data["path_to_photo"])[-1]
@@ -40,11 +38,23 @@ def orgs(request):
     return render(request, 'main/orgs.html', {'orgs' : data4render})
 
 def lectors(request):
-    data4render = Lectors.objects.filter(is_show=True).order_by("order") #
+    data4render = Lectors.objects.filter(is_show=True).order_by("order").values()
+    for data in data4render:
+        if os.path.isfile(data["path_to_photo"]):
+            img_file = os.path.split(data["path_to_photo"])[-1]
+        else:
+            img_file = "no_photo.jpeg"
+        data["path_to_photo"] = img_file
     return render(request, 'main/lectors.html', {'lectors' : data4render})
 
 def partners(request):
-    data4render = Partners.objects.filter(is_show=True).order_by("order")
+    data4render = Partners.objects.filter(is_show=True).order_by("order").values()
+    for data in data4render:
+        if os.path.isfile(data["path_to_photo"]):
+            img_file = os.path.split(data["path_to_photo"])[-1]
+        else:
+            img_file = "no_photo.jpeg"
+        data["path_to_photo"] = img_file
     return render(request, 'main/partners.html', {'partners' : data4render})
 
 
