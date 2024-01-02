@@ -86,15 +86,15 @@
 
                 <li>
                     <label for="expirience"> Каков ваш опыт в нейронауке? </label>
-                    <textarea id="expirience" name="expirience">
-                        Опыт
+                    <textarea id="expirience" name="expirience" rows="8" cols="50">
+                        
                     </textarea>
                 </li>
 
                 <li>
                     <label for="about_participant"> Расскажите немного о себе </label>
-                    <textarea id="about_participant" name="about_participant">
-                        Мотивационное письмо
+                    <textarea id="about_participant" name="about_participant" rows="8" cols="50">
+
                     </textarea>
                </li>
 
@@ -104,7 +104,7 @@
                         <p>
                             {{ task.text }}
                         </p>
-                        <textarea name="answer_for_task_{{forloop.counter}}"> Ответ </textarea> <br>
+                        <textarea name="answer_for_task_{{forloop.counter}}"  rows="8" cols="50"> </textarea> <br>
                     </li>
                 {% endfor %}
                 <li>
