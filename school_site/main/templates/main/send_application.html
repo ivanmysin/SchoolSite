@@ -2,54 +2,115 @@
 {% load static %}
 
 {% block title %}
-
+Форма заявки
 {% endblock %}
 
 
+          
+<!--
+          <form action="#" method="post" id="sendemail">
+            <ol>
+              <li>
+                <label for="name">Name (required)</label>
+                <input id="name" name="name" class="text" />
+              </li>
+              <li>
+                <label for="email">Email Address (required)</label>
+                <input id="email" name="email" class="text" />
+              </li>
+              <li>
+                <label for="website">Website</label>
+                <input id="website" name="website" class="text" />
+              </li>
+              <li>
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="8" cols="50"></textarea>
+              </li>
+              <li>
+                <input type="image" name="imageField" id="imageField" src="images/submit.gif" class="send" />
+                <div class="clr"></div>
+              </li>
+            </ol>
+          </form>
+-->
 
 {% block content %}
-    <form method="post" action="{% url "accepted_application" %}">
-        {% csrf_token %}
-        <div> <input type="text", placeholder="Имя", name="name">  <br> </div>
-        <div> <input type="text", placeholder="Фамилия", name="surname"><br>  </div>
-        <div> <input type="text", placeholder="Отчество", name="patronymic"><br>  </div>
-        <div> <input type="text", placeholder="Почта", name="email"><br> </div>
-        <div> <input type="text", placeholder="Телефон", name="phone"><br> </div>
-        <div> <input type="text", placeholder="Где вы учитесь?", name="university"><br> </div>
+    <div class="article">
+        <h2><span>Форма заявки на участие в школе</span></h2>
+        <div class="clr"></div>
+        <form method="post" action="{% url "accepted_application" %}" id="sendemail">
+            {% csrf_token %}
+            <ol>
+                <li>
+                    <label for="name"> Имя </label>
+                    <input id="name" name="name" class="text" />
+                </li>
 
-        <div> <input type="text", placeholder="Стадия обучения", name="education_stage"><br> </div>
-        <div>
-            <label for="form_of_participation"> Выберете форму участия</label>
-            <select id="form_of_participation" name="form_of_participation">
-                <option value="Хакатон">Хакатон</option>
-                <option value="Экспериментальная практика">Экспериментальная практика</option>
-            </select>
-        </div>
+                <li>
+                    <label for="surname"> Фамилия </label>
+                    <input id="surname" name="surname" class="text" />
+                </li>
 
-        <div>
-            <label for="expirience"> Каков ваш опыт в нейронауке? </label>
-            <textarea id="expirience" name="expirience">
-                Опыт
-            </textarea>
-        </div>
+                <li>
+                    <label for="patronymic"> Отчество </label>
+                    <input id="patronymic" name="patronymic" class="text" />
+                </li>
 
-        <div>
-            <label for="about_participant"> Расскажите немного о себе </label>
-            <textarea id="about_participant" name="about_participant">
-                Мотивационное письмо
-            </textarea>
-        </div>
+                <li>
+                    <label for="email"> Почта </label>
+                    <input id="email" name="email" class="text" />
+                </li>
+                
+                <li>
+                    <label for="phone"> Телефон </label>
+                    <input id="phone" name="phone" class="text" placeholder="Телефон" />
+                </li>
 
-        {% for task in tasks %}
-        <div>
-            <h4> {{ task.title }}</h4>
-            <p>
-                {{ task.text }}
-            </p>
-            <textarea name="answer_for_task_{{forloop.counter}}"> Ответ </textarea> <br>
-        </div>
-        {% endfor %}
+                <li>
+                    <label for="university"> Где вы учитесь? </label>
+                    <input id="university" name="university" class="text" placeholder="Университет" />
+                </li>
 
-        <button type="submit"> Отправить </button>
-    </form>
+                <li>
+                    <label for="education_stage"> Стадия обучения </label>
+                    <input id="education_stage" name="education_stage" class="text" placeholder="Стадия обучения" />
+                </li>
+
+                <li>
+                    <label for="form_of_participation"> Выберете форму участия</label>
+                    <select id="form_of_participation" name="form_of_participation">
+                        <option value="Хакатон">Хакатон</option>
+                        <option value="Экспериментальная практика">Экспериментальная практика</option>
+                    </select>
+                </li>
+
+                <li>
+                    <label for="expirience"> Каков ваш опыт в нейронауке? </label>
+                    <textarea id="expirience" name="expirience">
+                        Опыт
+                    </textarea>
+                </li>
+
+                <li>
+                    <label for="about_participant"> Расскажите немного о себе </label>
+                    <textarea id="about_participant" name="about_participant">
+                        Мотивационное письмо
+                    </textarea>
+               </li>
+
+                {% for task in tasks %}
+                    <li>               
+                        <h4> {{ task.title }}</h4>
+                        <p>
+                            {{ task.text }}
+                        </p>
+                        <textarea name="answer_for_task_{{forloop.counter}}"> Ответ </textarea> <br>
+                    </li>
+                {% endfor %}
+                <li>
+                    <button type="submit" class="send"> Отправить </button>
+                </li>
+            </ol>
+        </form>
+    </div>
 {% endblock %}

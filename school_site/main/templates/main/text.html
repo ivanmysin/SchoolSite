@@ -8,9 +8,12 @@
 
 {% block content %}
     {% for text_block in texts_page %}
-        <div>
-            <h2>  {{ text_block.title }} </h2>
+    <div class="article">
+        <h2><span> {{ text_block.title }} </span></h2>
+        <div class="post_content">
+            <div class="clr"></div>
             <p> {{ text_block.text }} </p>
         </div>
+    </div>
     {% endfor %}
 {% endblock %}

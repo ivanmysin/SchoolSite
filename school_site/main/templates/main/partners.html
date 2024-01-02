@@ -5,24 +5,32 @@
     Партнеры школы
 {% endblock %}
 
-{% block content %}
-    {% if partners %}
-    <table>
-        {% for par in partners %}
-        <tr>
-            {% if par.path_to_photo == "" %}
-                <th>   <img src="{% static 'main/images/partners_photo/no_photo.jpeg'%}" style="width:100%"> </th>
-            {% else %}
-                <th>   <img src="{% static 'main/images/partners_photo/'%}{{par.path_to_photo}}" style="width:100%"> </th>
-            {% endif %}
 
-            <th> <h2> {{par.organization_name}} </h2> </th>
-            <th> <span class="small"> {{par.role}} </span> </th>
-            <th> <span class="small"> {{par.organization_description}} </span> </th>
-        </tr>
+{% block content %}
+    <div class="article">
+        <h2><span> Партнеры </span></h2>
+        {% if partners %}
+            {% for par in partners %}
+              <div class="clr"></div>
+              <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="post_content">
+                <div class="clr"></div>
+                <p> <strong> {{par.organization_name}} </strong></p>
+                <p> {{par.organization_description}} </p>
+              </div>
+
         {% endfor %}
-    </table>
     {% else %}
-    <p><h3> У Школы пока нет партнеров. Будьте первым, <a href={% url "contacts" %}> напишите нам! </a> </h3></p>
+        <div class="clr"></div>
+         <div class="post_content">
+             <p> <strong> У Школы пока нет партнеров. Будьте первым, <a href={% url "contacts" %}> напишите нам! </a> </strong></p>
+        </div>
     {% endif %}
+
+
+
+    </div>
 {% endblock %}
+
+
+

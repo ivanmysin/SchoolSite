@@ -1,15 +1,86 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'main/styles/styles.css' %}">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} {% endblock %}</title>
+<title>{% block title %} {% endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{% static 'main/styles/style.css' %}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{% static 'main/styles/coin-slider.css' %}" />
+<!-- <script type="text/javascript" src="js/cufon-yui.js"></script> -->
+<script type="text/javascript" src="{% static 'main/js/droid_sans_400-droid_sans_700.font.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/jquery-1.4.2.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/script.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/coin-slider.min.js' %}"></script>
 </head>
 <body>
-      <!-- <h3>Навигация</h3> -->
-        <ul class="navigation">
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="slider">
+        <div id="coin-slider">
+          <a href="#"><img src="{% static 'main/images/slide1.jpg' %}" width="960" height="500" alt="" />
+          </a> <a href="#"><img src="{% static 'main/images/slide2.jpg' %}" width="960" height="500" alt="" /> </a>
+          <a href="#"><img src="{% static 'main/images/slide3.jpg' %}" width="960" height="500" alt="" /> </a>
+        </div>
+      </div>
+      <div class="menu_nav">
+        <ul>
+          <li class="active"><a href="{% url "home" %}>"><span>Главная</span></a></li>
+          <li><a href="{% url "orgs" %}"><span>Организаторы</span></a></li>
+          <li><a href="{% url "lectors" %}"><span>Лекторы</span></a></li>
+          <li><a href="{% url "history" %}"><span>История</span></a></li>
+          <!--
+          <li><a href="{% url "partners" %}"><span>Партнеры</span></a></li>
+          <li><a href="{% url "dates" %}"><span>Ключевые даты</span></a></li>
+          <li><a href="{% url "payment" %}"><span>Оргвзносы</span></a></li>
+          
+          <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
+          <li><a href={% url "send_application" %} id=send_link> Подать заявку  </a> </li>
+        </ul>
+      </div>
+      <div class="logo">
+        <h1><a href="index.html"><span>Летняя школа</span> <small>in vivo veritas</small></a></h1>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+
+        {% block content %}
+        {% endblock %}
+        
+
+        <!--<div class="article">
+          <h2><span>We'll Make Sure Template</span> Works For You</h2>
+          <p class="infopost">Posted on <span class="date">29 aug 2016</span> by <a href="#">Admin</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp; <a href="#" class="com">Comments <span>(7)</span></a></p>
+          <div class="clr"></div>
+          <div class="img"><img src="images/img2.jpg" width="156" height="207" alt="" class="fl" /></div>
+          <div class="post_content">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.</a> Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque. Curabitur vel urna. In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam.</p>
+            <p><strong>Aenean consequat porttitor adipiscing. Nam pellentesque justo ut tortor congue lobortis. Donec venenatis sagittis fringilla.</strong> Etiam nec libero magna, et dictum velit. Proin mauris mauris, mattis eu elementum eget, commodo in nulla. Mauris posuere venenatis pretium. Maecenas a dui sed lorem aliquam dictum. Nunc urna leo, imperdiet eu bibendum ac, pretium ac massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Quisque condimentum luctus ullamcorper.</p>
+            <p class="spec"><a href="#" class="rm">Read more</a></p>
+          </div>
+          <div class="clr"></div>
+        </div>
+        <p class="pages"><small>Page 1 of 2</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>  -->
+      </div>
+      <div class="sidebar">
+        <!--
+        <div class="searchform">
+          <form id="formsearch" name="formsearch" method="post" action="#">
+            <span>
+            <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+            </span>
+            <input name="button_search" src="images/search.gif" class="button_search" type="image" />
+          </form>
+        </div> -->
+        <div class="clr"></div>
+        <div class="gadget">
+          <h2 class="star"><span>Меню</span></h2>
+          <div class="clr"></div>
+          <ul class="sb_menu">
             <li><a href={% url "home" %}> Главная </a></li>
             <li><a href={% url "orgs" %}> Организаторы</a></li>
             <li><a href={% url "lectors" %}> Лекторы </a> </li>
@@ -21,20 +92,62 @@
             <li><a href={% url "history" %}> История </a></li>
             <li><a href={% url "faqs" %}> ЧаВо </a></li>
             <li><a href={% url "send_application" %} id=send_link> Подать заявку  </a> </li>
-        </ul>
-
-
-        <div class="container">
-            <div class="header">
-                <h1> Летняя научная школа "Введение в нейробиологию внимания и памяти им. О.С. Виноградовой" </h1>
-            </div>
-            <div class="content_cotainer">
-            {% block content %}
-            {% endblock %}
-            </div>
+          </ul>
         </div>
-
-    <!-- <footer>
-        </footer> -->
+        <!--
+        <div class="gadget">
+          <h2 class="star"><span>Sponsors</span></h2>
+          <div class="clr"></div>
+          <ul class="ex_menu">
+            <li><a href="#">Lorem ipsum dolor</a><br />
+              Donec libero. Suspendisse bibendum</li>
+            <li><a href="#">Dui pede condimentum</a><br />
+              Phasellus suscipit, leo a pharetra</li>
+            <li><a href="#">Condimentum lorem</a><br />
+              Tellus eleifend magna eget</li>
+            <li><a href="#">Fringilla velit magna</a><br />
+              Curabitur vel urna in tristique</li>
+            <li><a href="#">Suspendisse bibendum</a><br />
+              Cras id urna orbi tincidunt orci ac</li>
+            <li><a href="#">Donec mattis</a><br />
+              purus nec placerat bibendum</li>
+          </ul>
+        </div> -->
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="fbg">
+    <div class="fbg_resize">
+      <div class="col c1">
+        <h2><span>Image</span> Gallery</h2>
+        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
+      <div class="col c2">
+        <h2><span>Services</span> Overview</h2>
+        <p>Curabitur sed urna id nunc pulvinar semper. Nunc sit amet tortor sit amet lacus sagittis posuere cursus vitae nunc.Etiam venenatis, turpis at eleifend porta, nisl nulla bibendum justo.</p>
+        <ul class="fbg_ul">
+          <li><a href="#">Lorem ipsum dolor labore et dolore.</a></li>
+          <li><a href="#">Excepteur officia deserunt.</a></li>
+          <li><a href="#">Integer tellus ipsum tempor sed.</a></li>
+        </ul>
+      </div>
+      <div class="col c3">
+        <h2><span>Наши контакты</span></h2>
+        <p>Nullam quam lorem, tristique non vestibulum nec, consectetur in risus. Aliquam a quam vel leo gravida gravida eu porttitor dui.</p>
+        <p class="contact_info"> <span>Адрес:</span>Россия, Московская область, г. Пущино, ул. Институтская 3<br />
+          <span>Телефон:</span> +123-1234-5678<br />
+          <span>Почта:</span> <a href="mailto:hippocampus.psn@gmail.com">hippocampus.psn@gmail.com</a> </p>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer_resize">
+      <p class="lf">Copyright &copy; <a href="#">Domain Name</a>. All Rights Reserved</p>
+      <p class="rf">Get More <a target="_blank" href="http://www.free-css.com/">Free CSS Templates</a> By <a target="_blank" href="http://www.dreamtemplate.com/">DreamTemplate</a></p>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

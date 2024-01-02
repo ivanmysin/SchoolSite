@@ -6,24 +6,28 @@
 {% endblock %}
 
 {% block content %}
-    {% if lectors %}
-    <table>
-        {% for lec in lectors %}
-        <tr>
-            {% if lec.path_to_photo == "" %}
-                <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
-            {% else %}
-                <th>   <img src="{% static 'main/images/lectors_photo/'%}{{lec.path_to_photo}}" style="width:100%"> </th>
-            {% endif %}
-            <th>   {{lec.surname}} </th>
-            <th>   {{lec.name}} </th>
-            <th>   {{lec.patronymic}} </th>
-            <th> <span class="small"> {{lec.affilation}} </span> </th>
-            <th> <span class="small"> {{lec.degree}} </span> </th>
-        </tr>
+    <div class="article">
+        <h2><span> Лекторы школы</span></h2>
+        {% if lectors %}
+            {% for lec in lectors %}
+              <div class="clr"></div>
+              <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="post_content">
+                <div class="clr"></div>
+                <p> <strong> {{lec.surname}} {{lec.name}} {{lec.patronymic}} </strong></p>
+                <p> {{lec.degree}} </p>
+                <p> {{lec.affilation}} </p>
+              </div>
+
         {% endfor %}
-    </table>
     {% else %}
-    <p><h3> Ни одного лектора не добавлено </h3></p>
+        <div class="clr"></div>
+         <div class="post_content">
+             <p> <strong> Ни одного лектора не добавлено  </strong></p>
+        </div>
     {% endif %}
+
+
+
+    </div>
 {% endblock %}

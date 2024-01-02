@@ -2,27 +2,32 @@
 {% load static %}
 
 {% block title %}
-    Организаторы
+    Оргкомитет Школы
 {% endblock %}
 
 {% block content %}
-    {% if orgs %}
-    <table>
-        {% for org in orgs %}
-        <tr>
-            {% if org.path_to_photo == "" %}
-                <th>   <img src="{% static 'main/images/orgs_photo/no_photo.jpeg'%}" style="width:100%"> </th>
-            {% else %}
-                <th>   <img src="{% static 'main/images/orgs_photo/'%}{{org.path_to_photo}}" style="width:100%"> </th>
-            {% endif %}
-            <th>   {{org.surname}} </th>
-            <th>   {{org.name}} </th>
-            <th>   {{org.patronymic}} </th>
-            <th> <span class="small"> {{org.role}} </span> </th>
-        </tr>
+    <div class="article">
+        <h2><span> Организаторы </span></h2>
+        {% if orgs %}
+            {% for org in orgs %}
+              <div class="clr"></div>
+              <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="post_content">
+                <div class="clr"></div>
+                <p> <strong> {{org.surname}} {{org.name}} {{org.patronymic}} </strong></p>
+                <p> {{org.role}} </p>
+              </div>
+
         {% endfor %}
-    </table>
     {% else %}
-    <p><h3> Ни одного организатора не добавлено </h3></p>
+        <div class="clr"></div>
+         <div class="post_content">
+             <p> <strong> Ни одного организатора не добавлено  </strong></p>
+        </div>
     {% endif %}
+
+
+
+    </div>
 {% endblock %}
+
