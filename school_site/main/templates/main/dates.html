@@ -5,10 +5,16 @@
     Ключевые даты
 {% endblock %}
 
-{% block content %}
-    <h2> Ключевые даты</h2>
-    {% for date  in dates %}
-        <p> {{ date.date }} -  {{ date.date_desription }}</p>
 
-    {% endfor %}
+{% block content %}
+    <div class="article">
+        <h2><span> Ключевые даты </span></h2>
+        <div class="post_content">
+            <div class="clr"></div>
+            {% for date  in dates %}
+                <p> {{ date.date }} -  {{ date.date_desription }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

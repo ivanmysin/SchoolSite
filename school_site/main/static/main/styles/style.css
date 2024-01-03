@@ -187,7 +187,7 @@ h1 small {
 
  .article {
  	display: inline-block;
- 	width : 100%;
+ 	width : 643px;
 
  }
 
@@ -227,7 +227,7 @@ ul.sb_menu li, ul.ex_menu li {
 	margin:0;
 }
 ul.sb_menu li, ul.ex_menu li {
-	padding:8px 0;
+	padding:12px 0; /* 8px 0*/ 
 	width:220px;
 }
 ul.sb_menu li a {
@@ -235,6 +235,9 @@ ul.sb_menu li a {
 	text-decoration:none;
 	margin-left:0;
 	padding:4px 8px 4px 0;
+
+
+	font-size: 14pt; /* !!! */ 
 }
 ul.ex_menu li a {
 	font-weight:bold;
@@ -245,6 +248,8 @@ ul.sb_menu li a:hover, ul.ex_menu li a:hover {
 	color:#617e84;
 	font-weight:bold;
 	text-decoration:none;
+
+	font-size: 16pt; /* !!! */ 
 }
 p.spec {
 	padding:0 0 16px;
@@ -365,11 +370,11 @@ p.infopost span.date {
 }
 .fbg .c2 {
 	padding:0 36px 0 16px;
-	width:280px;
+	width:270px;
 }
 .fbg .c3 {
 	padding:0 0 0 16px;
-	width:274px;
+	width:280px;
 }
 .fbg .fbg_ul {
 	margin:0;
@@ -405,7 +410,7 @@ p.infopost span.date {
 .fbg p.contact_info span {
 	display:block;
 	float:left;
-	width:74px;
+	width:110px;
 	font-weight:bold;
 }
 ol {
