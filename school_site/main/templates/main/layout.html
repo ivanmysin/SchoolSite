@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{% block title %} {% endblock %}</title>
+<link rel="shortcut icon" href="{% static 'main/images/ico.jpg' %}" type="image/jpg">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="{% static 'main/styles/style.css' %}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{% static 'main/styles/coin-slider.css' %}" />
@@ -15,6 +16,10 @@
 <body>
 <div class="main">
   <div class="header">
+    <div class=title>
+      <span>Летняя научная школа "Введение в нейробиологию внимания и памяти" им. О.С. Виноградовой</span> <br> <span class=sub_title>5 - 16 августа 2024 г.</span>
+    </div>
+    <div class="clr"></div>
     <div class="header_resize">
       <div class="slider">
         <div id="coin-slider">
@@ -35,12 +40,12 @@
           <li><a href="{% url "payment" %}"><span>Оргвзносы</span></a></li>
           
           <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
-          <li><a href={% url "send_application" %} id=send_link> Подать заявку  </a> </li>
+          <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
         </ul>
       </div>
-      <div class="logo">
-        <h1><a href="index.html"><span>Летняя школа</span> <small>in vivo veritas</small></a></h1>
-      </div>
+      <!-- <div class="logo">
+       
+      </div> -->
       <div class="clr"></div>
     </div>
   </div>
@@ -91,7 +96,7 @@
             <li><a href={% url "contacts" %}> Контакты </a></li>
             <li><a href={% url "history" %}> История </a></li>
             <li><a href={% url "faqs" %}> ЧаВо </a></li>
-            <li><a href={% url "send_application" %} id=send_link> Подать заявку  </a> </li>
+            <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
           </ul>
         </div>
         <!--

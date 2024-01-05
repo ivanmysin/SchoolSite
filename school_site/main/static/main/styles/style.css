@@ -45,6 +45,30 @@ a {
 }
 .header {
 }
+.header .title {
+	margin:15px auto;
+	/* padding:auto 15px;  !!!!!!!!! */ 
+	width: 960px;
+	height: 120px;
+}
+
+.header .title span {
+	font-size: 24pt;
+	color:#617e84;
+	font-weight:bold;
+	line-height:1.2em;
+	text-transform:none;
+	letter-spacing:2px;
+}
+
+.header .title .sub_title {
+	font-size: 18pt;
+	font-style: italic;
+
+}
+
+
+
 .header_resize {
 	margin:0 auto;
 	padding:0;
@@ -234,7 +258,7 @@ ul.sb_menu li a {
 	color:#585757;
 	text-decoration:none;
 	margin-left:0;
-	padding:4px 8px 4px 0;
+	padding:4px 8px 4px 4px;
 
 
 	font-size: 14pt; /* !!! */ 
@@ -518,3 +542,24 @@ ol li .send {
 a {
 	outline:none;
 }
+
+a.send_link {
+  display: inline-block;
+  /*padding: px;*/
+  /* text-transform: uppercase; */
+  /*text-decoration: none;*/
+  /*color: white;*/
+  border: .125rem solid red;
+  border-radius: .25rem;
+
+/*  background: lighten(red, 30%);
+  box-shadow: 0 0 1em 0 rgba(red, .5);
+  transition: all .2s ease-in;
+  
+  &:hover {
+    color: red;
+    background: white;
+    /* box-shadow: 0 0 3em 1rem red; */
+  }*/
+}
+
