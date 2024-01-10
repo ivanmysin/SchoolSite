@@ -12,7 +12,7 @@
         {% if partners %}
             {% for par in partners %}
               <div class="clr"></div>
-              <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="img"><img src="{% static 'main/images/partners_photo/'%}{{par.path_to_photo}}" width="156" height="207" alt="" class="fl" /></div>
               <div class="post_content">
                 <div class="clr"></div>
                 <p> <strong> {{par.organization_name}} </strong></p>

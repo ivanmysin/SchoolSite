@@ -16,10 +16,11 @@ from pathlib import Path
 __import__('pysqlite3')
 import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+#sys.path.append("../../")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path( os.path.abspath(__file__)).resolve().parent.parent
-
+print(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'labson.ru', 'www.labson.ru']
 
 INSTALLED_APPS = [
     "main",
+    "ckeditor",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

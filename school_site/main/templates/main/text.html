@@ -10,9 +10,13 @@
     {% for text_block in texts_page %}
     <div class="article">
         <h2><span> {{ text_block.title }} </span></h2>
+        <div class="clr"></div>
+        
+        <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+        
         <div class="post_content">
             <div class="clr"></div>
-            <p> {{ text_block.text }} </p>
+            <p> {{ text_block.text|safe }} </p>
         </div>
     </div>
     {% endfor %}

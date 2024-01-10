@@ -11,7 +11,7 @@
         {% if lectors %}
             {% for lec in lectors %}
               <div class="clr"></div>
-              <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="img"><img src="{% static 'main/images/lectors_photo'%}{{lec.path_to_photo}}" width="156" height="207" alt="" class="fl" /></div>
               <div class="post_content">
                 <div class="clr"></div>
                 <p> <strong> {{lec.surname}} {{lec.name}} {{lec.patronymic}} </strong></p>

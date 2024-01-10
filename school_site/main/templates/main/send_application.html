@@ -102,7 +102,7 @@
                     <li>               
                         <h4> {{ task.title }}</h4>
                         <p>
-                            {{ task.text }}
+                            {{ task.text|safe }}
                         </p>
                         <textarea name="answer_for_task_{{forloop.counter}}"  rows="8" cols="50"> </textarea> <br>
                     </li>

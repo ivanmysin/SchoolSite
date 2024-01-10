@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Organizators(models.Model):
@@ -76,7 +77,7 @@ class KeyDates(models.Model):
 
 class Faqs(models.Model):
     question = models.CharField('Вопрос', max_length=250, blank=False)
-    answer = models.TextField('Ответ', blank=False)
+    answer = RichTextField('Ответ', blank=False)
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
 
@@ -98,7 +99,7 @@ class TextPage(models.Model):
 
 
     title = models.CharField('Заголовок', max_length=250, blank=False)
-    text = models.TextField('Текст', blank=False)
+    text = RichTextField('Текст', blank=False)
     page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
     path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
@@ -115,7 +116,7 @@ class TextPage(models.Model):
 class QualifyingTasks(models.Model):
 
     title = models.CharField('Заголовок', max_length=250, blank=False)
-    text = models.TextField('Текст задачи', blank=False)
+    text = RichTextField('Текст задачи', blank=False)
 
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
