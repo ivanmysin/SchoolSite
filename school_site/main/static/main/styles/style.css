@@ -212,6 +212,8 @@ h1 small {
  .article {
  	display: inline-block;
  	width : 643px;
+ 	font-size: 12pt;
+ 	line-height: 1.5;
 
  }
 
