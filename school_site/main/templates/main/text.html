@@ -11,10 +11,12 @@
     <div class="article">
         <h2><span> {{ text_block.title }} </span></h2>
         <div class="clr"></div>
-        
-        <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
-        
-        <div class="post_content">
+        {% if text_block.path_to_photo %}
+            <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
+            <div class="post_content">
+        {% else %}
+            <div class="post_content_no_photo">
+        {% endif %}
             <div class="clr"></div>
             <p> {{ text_block.text|safe }} </p>
         </div>

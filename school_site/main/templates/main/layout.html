@@ -40,7 +40,12 @@
           <li><a href="{% url "payment" %}"><span>Оргвзносы</span></a></li>
           
           <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
+          {% for nav_link in nav_links %}
+            <li><a href="{{nav_link.link}}"><span>{{nav_link.name}}</span></a></li>
+          {% endfor %}
           <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
+
+
         </ul>
       </div>
       <!-- <div class="logo">

@@ -3,6 +3,24 @@ from django.utils.html import mark_safe
 from ckeditor.fields import RichTextField
 
 # Create your models here.
+
+class SiteMenu(models.Model):
+    pages_types = [ ("text", "Текст"), ("list_with_photo", "Список с фото"),]
+
+    name = models.CharField('Отображение на сайте', max_length=50, blank=False)
+    link = models.CharField('Ссылка (на английском)', max_length=50, blank=False)
+    order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
+    page_type = models.CharField('Тип страницы', max_length=250, blank=False, choices=pages_types)
+    is_show_top = models.BooleanField('Отображать на верхней панели?', blank=True, default=True)
+    is_show_left = models.BooleanField('Отображать на левой панели?', blank=True, default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Пункт меню'
+        verbose_name_plural = 'Пункты меню'
+
 class Organizators(models.Model):
     role = models.CharField('Роль в оргкоммитете', max_length=50, blank=True)
     name = models.CharField('Имя', max_length=50)
@@ -21,8 +39,8 @@ class Organizators(models.Model):
     #         return mark_safe('<img src="{}" width="300" height="300" />'.format(self.path_to_photo.url))
     #     return ""
     class Meta:
-        verbose_name = 'Оганизатор'
-        verbose_name_plural = 'Оганизаторы'
+        verbose_name = 'Организатор'
+        verbose_name_plural = 'Организаторы'
 
 
 
@@ -114,7 +132,7 @@ class TextPage(models.Model):
         verbose_name_plural = 'Тексты для страниц'
 
 class QualifyingTasks(models.Model):
-
+    id = models.AutoField(primary_key=True)
     title = models.CharField('Заголовок', max_length=250, blank=False)
     text = RichTextField('Текст задачи', blank=False)
 
@@ -131,6 +149,7 @@ class QualifyingTasks(models.Model):
 
 
 class ApplicationsForParticipation(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField('Имя', max_length=250, blank=False)
     surname = models.CharField('Фамилия', max_length=250, blank=False)
     patronymic = models.CharField('Отчество', max_length=250, blank=False)
@@ -142,12 +161,15 @@ class ApplicationsForParticipation(models.Model):
 
     expirience = models.TextField('Опыт в нейронауке', max_length=5000, blank=False)
     about_participant = models.TextField('Расскажите о себе', max_length=5000, blank=False)
-    qualifying_answers = models.TextField('Ответы на отборочные задачи', max_length=50000, blank=False)
+    qualifying_answers = models.TextField('Ответы на отборочные задачи', max_length=50000, blank=True)
 
 
     sended_datetime = models.DateTimeField('Время отправки формы', blank=False, auto_now=True)
+
+    is_accepted = models.BooleanField('Берем на школу?', default=False)
+
     #order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
-    #is_show = models.BooleanField('Отображать на сайте?', default=True)
+
 
 
     def __str__(self):
@@ -156,3 +178,13 @@ class ApplicationsForParticipation(models.Model):
     class Meta:
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+
+
+class QualifyingAnswers(models.Model):
+    participant_id = models.ForeignKey(ApplicationsForParticipation, on_delete=models.CASCADE, blank=False)
+    task_id = models.ForeignKey(QualifyingTasks, on_delete=models.CASCADE, blank=False)
+    answer = models.TextField('Ответ на отборочную задачу', max_length=50000, blank=True)
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'

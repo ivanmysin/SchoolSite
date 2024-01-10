@@ -1,30 +1,65 @@
 from django.shortcuts import render
 import os
-from .models import Organizators, Lectors, Partners, KeyDates, Faqs, TextPage, QualifyingTasks, ApplicationsForParticipation
+from .models import Organizators, Lectors, Partners, KeyDates, Faqs, TextPage, QualifyingTasks, ApplicationsForParticipation, SiteMenu, QualifyingAnswers
+#from school_site.main.templates.forms import ApplicationsForParticipationForm, QualifyingAnswersForm
+from django.views.generic.base import ContextMixin
+from django.views.generic import View, TemplateView
+class NavView(ContextMixin):
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["nav_links"] = SiteMenu.objects.filter(is_show_top=True) | SiteMenu.objects.filter(is_show_left=True)
+        return context
 
 
 
-def index(request):
 
+class TextPageView(TemplateView, NavView):
+    template_name = "main/text.html"
 
-    filenames = []
-    for filename in os.listdir('/home/ivan/PycharmProjects/SchoolSite/school_site/main/static/main/images/home_slider'):
-        if filename[-4:] != '.jpg': continue
-        filenames.append(filename)
+    # other methods and stuffs
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
 
+        path = self.request.path.split(" ")[0][1:]
+        texts_page = TextPage.objects.filter(is_show=True, page=path).order_by("order")
 
-    data4render = {
-        'text2title': 'О школе',
-        'text2' : "Летняя школа \"Введение в нейробиологию внимания и памяти\" — ежегодное мероприятие. Цель школы - привлечение студентов в нейронауку. В рамках школы проходят лекции ведущих ученых, практические занятия и нейротурнир",
-        'text1title' : 'Наша миссия',
-        'text1' : ["Наша летняя научная школа предназначена для того, чтобы помочь студентам развить навыки научного исследования и критического мышления.",
-                   "Мы стремимся предоставить студентам возможность погрузиться в мир науки и исследований, а также научиться работать в команде.",
-                   "Наша летняя научная школа предлагает разнообразные курсы по различным областям научных знаний, включая физику, биологию и математику.",
-                   "Мы считаем, что научное исследование имеет огромное значение для развития общества и будущего нашей планеты.",
-                   "Мы стремимся создать дружественную и поддерживающую среду для всех участников, где они могут развивать свои таланты и достигать своих целей."],
-        'filenames' : filenames,
-    }
-    return render(request, 'main/index.html', data4render)
+        context["texts_page"] = texts_page
+        return context
+
+    # def post(self, *args, **kwarg):
+    #
+    #     context = super().get_context_data(*args, **kwarg)
+    #
+    #     path = self.request.path.split(" ")[0][1:]
+    #     #if path == "accepted_application":
+    #
+    #     try:
+    #         accepted_data = {}
+    #         qualifying_answers = ""
+    #         for key, val in self.request.POST.items():
+    #             if key.find("answer_for_task_") != -1:
+    #                qualifying_answers = key + ":  " + qualifying_answers + "\n################\n" + val
+    #             elif key == "csrfmiddlewaretoken":
+    #                 continue
+    #             else:
+    #                 accepted_data[key] = val
+    #
+    #         accepted_data["qualifying_answers"] = qualifying_answers
+    #         accepted_form = ApplicationsForParticipation(**accepted_data)
+    #         accepted_form.save()
+    #         texts_page = [{
+    #             "title" : "Ваша заявка успешно отправлена!",
+    #             "text" : "",
+    #         },]
+    #
+    #     except:
+    #         texts_page = [{
+    #                 "title" : "Форма содержит ошибки!",
+    #                 "text" : "",
+    #         },]
+    #     context["texts_page"] = texts_page
+    #     return context
+
 
 def orgs(request):
     data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
@@ -65,60 +100,64 @@ def dates(request):
 
 def text(request):
 
+
     path = request.path.split(" ")[0][1:]
 
+    answers = []
+
+    qualifying_answers = []
+    accepted_data = {}
 
     if request.method == "POST" and path == "accepted_application":
         try:
-            accepted_data = {}
-            qualifying_answers = ""
             for key, val in request.POST.items():
-
                 if key.find("answer_for_task_") != -1:
-                    qualifying_answers = key + ":  " + qualifying_answers + "\n################\n" + val
+                    task_id = int(key.split("_")[-1])
+                    qualifying_answers.append({"task_id" : task_id, "answer" : val}) # = key + ":  " + qualifying_answers + "\n################\n" + val
 
                 elif key == "csrfmiddlewaretoken":
                     continue
                 else:
                     accepted_data[key] = val
 
+            jointed_answers = ""
+            task_number = 1
+            for answer in sorted(qualifying_answers, key=lambda d: d['task_id']):
+                jointed_answers += "Задача № {} \n {} \n\n".format(task_number, answer["answer"])
+                task_number += 1
 
-            accepted_data["qualifying_answers"] = qualifying_answers
+            accepted_data["qualifying_answers"] = jointed_answers
             accepted_form = ApplicationsForParticipation(**accepted_data)
-
-
-            # if accepted_form.is_valid():
             accepted_form.save()
+
+            for answer in qualifying_answers:
+                answer_dict = {
+                    "participant_id" : accepted_form,
+                    "task_id": QualifyingTasks.objects.get(id=answer["task_id"]),
+                    "answer" : answer["answer"],
+                }
+                ans = QualifyingAnswers(**answer_dict)
+                ans.save()
+
+
 
             texts_page = [{
                 "title" : "Ваша заявка успешно отправлена!",
-                "text" : "",
+                "text" : "Подтверждение отправлено на почту {}".format(accepted_data["email"]),
             },]
 
-        except:
+        except ZeroDivisionError:
             texts_page = [{
                 "title" : "Форма содержит ошибки!",
                 "text" : "",
             },]
-    else:
-        texts_page = TextPage.objects.filter(is_show=True, page=path).order_by("order")
-
-
     data = {
         "texts_page" : texts_page,
+        "menu" : [],
     }
     return (render(request, 'main/text.html', data))
 
 
-
-# def history(request):
-#
-#     data = {
-#         'tiltes' : ['Школа 2023', 'Школа 2022', 'Школа 2021', 'Школа 2018'],
-#         'schools' : [],
-#     }
-#
-#     return (render(request, 'main/history.html', data))
 
 def faqs(request):
     faqs = Faqs.objects.filter(is_show=True).order_by("order")
