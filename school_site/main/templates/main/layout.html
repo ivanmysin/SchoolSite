@@ -6,12 +6,15 @@
 <link rel="shortcut icon" href="{% static 'main/images/ico.jpg' %}" type="image/jpg">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="{% static 'main/styles/style.css' %}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{% static 'main/styles/coin-slider.css' %}" />
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'main/styles/coin-slider.css' %}" /> -->
+<link href="{% static 'main/styles/sss.css' %}" rel="stylesheet" type="text/css" media="all">/>
 <!-- <script type="text/javascript" src="js/cufon-yui.js"></script> -->
-<script type="text/javascript" src="{% static 'main/js/droid_sans_400-droid_sans_700.font.js' %}"></script>
-<script type="text/javascript" src="{% static 'main/js/jquery-1.4.2.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'main/js/script.js' %}"></script>
-<script type="text/javascript" src="{% static 'main/js/coin-slider.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'main/js/droid_sans_400-droid_sans_700.font.js' %}"></script>-->
+<!-- <script type="text/javascript" src="{% static 'main/js/jquery-1.4.2.min.js' %}"></script> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="{% static 'main/js/script.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'main/js/coin-slider.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'main/js/sss.min.js' %}"></script>
 </head>
 <body>
 <div class="main">
@@ -20,15 +23,7 @@
       <span>Летняя научная школа "Введение в нейробиологию внимания и памяти" им. О.С. Виноградовой</span> <br> <span class=sub_title>5 - 16 августа 2024 г.</span>
     </div>
     <div class="clr"></div>
-    <div class="header_resize">
-      <div class="slider">
-        <div id="coin-slider">
-          <a href="#"><img src="{% static 'main/images/header_slider/_OTEmb6WUbo.jpg' %}" width="960" height="500" alt="" /> </a> 
-          <a href="#"><img src="{% static 'main/images/header_slider/5Ftps8giBe0.jpg' %}" width="960" height="500" alt="" /> </a>
-          <a href="#"><img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" /> </a>
-        </div>
-      </div>
-      <div class="menu_nav">
+    <div class="menu_nav">
         <ul>
           <li><a href="{% url "home" %}>"><span>Главная</span></a></li>
           <li><a href="{% url "orgs" %}"><span>Организаторы</span></a></li>
@@ -38,16 +33,24 @@
           <li><a href="{% url "partners" %}"><span>Партнеры</span></a></li>
           <li><a href="{% url "dates" %}"><span>Ключевые даты</span></a></li>
           <li><a href="{% url "payment" %}"><span>Оргвзносы</span></a></li>
-          
+
           <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
           {% for nav_link in nav_links %}
             <li><a href="{{nav_link.link}}"><span>{{nav_link.name}}</span></a></li>
           {% endfor %}
           <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
-
-
         </ul>
       </div>
+    <div class="clr"></div>
+    <div class="header_resize">
+      <div class="slider_">
+        <div class="slider"> <!-- id="coin-slider"  -->
+          <img src="{% static 'main/images/header_slider/_OTEmb6WUbo.jpg' %}" width="960" height="500" alt="" />
+          <img src="{% static 'main/images/header_slider/5Ftps8giBe0.jpg' %}" width="960" height="500" alt="" />
+          <img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" />
+        </div>
+      </div>
+
       <!-- <div class="logo">
        
       </div> -->
@@ -159,9 +162,12 @@
     <div class="footer_resize">
       <!-- <p class="lf">Домен &copy; <a href="#">labson.ru</a>. Все права защищены</p> -->
       <p class="rf">Get More <a target="_blank" href="http://www.free-css.com/">Free CSS Templates</a> By <a target="_blank" href="http://www.dreamtemplate.com/">DreamTemplate</a></p>
-      <div style="clear:both;"></div>
+
     </div>
   </div>
 </div>
 </body>
+<script>
+  jQuery(function($) {$('.slider').sss();});
+</script>
 </html>
