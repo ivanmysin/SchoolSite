@@ -18,7 +18,16 @@
 <script type="text/javascript" src="{% static 'main/js/sss.min.js' %}"></script>
 <script type="text/javascript">
   var jQuery_1_9_0 = $.noConflict(true);
-  jQuery_1_9_0(function($) {$('.slider').sss();});
+  jQuery_1_9_0(function($) {
+    $('.slider').sss();
+    $('.thumbs a').touchTouch();
+  });
+
+  //jQuery_1_9_0(function(){
+  // Initialize the gallery
+    
+  //});
+
 </script>
 
 
@@ -141,14 +150,28 @@
     <div class="fbg_resize">
       <div class="col c1">
         <h2><span>Галерея</span></h2>
-        <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
+        <div class="thumbs">
+          <a href={% static 'main/images/gallery/gal1.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal1.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal2.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal2.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal3.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal3.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal4.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal4.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal5.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal5.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal6.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal6.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+
+            <!--<img src="{% static 'main/images/gallery/gal1.jpg' %}" width="75" height="75" alt="" class="gal" />
+          <a href="#"><img src="{% static 'main/images/gallery/gal2.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
+          <a href="#"><img src="{% static 'main/images/gallery/gal3.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
+          <a href="#"><img src="{% static 'main/images/gallery/gal4.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
+          <a href="#"><img src="{% static 'main/images/gallery/gal5.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
+          <a href="#"><img src="{% static 'main/images/gallery/gal6.jpg' %}" width="75" height="75" alt="" class="gal" /></a>-->
+        </div>
+      </div>
       <div class="col c2">
-        <h2><span>Services</span> Overview</h2>
-        <p>Curabitur sed urna id nunc pulvinar semper. Nunc sit amet tortor sit amet lacus sagittis posuere cursus vitae nunc.Etiam venenatis, turpis at eleifend porta, nisl nulla bibendum justo.</p>
+        <h2><span>Наши соцсети</span></h2>
+        <p>Вы можете узнать больше о Летней школе и нашей лаборатории из наших соцсетей</p>
         <ul class="fbg_ul">
-          <li><a href="#">Lorem ipsum dolor labore et dolore.</a></li>
-          <li><a href="#">Excepteur officia deserunt.</a></li>
-          <li><a href="#">Integer tellus ipsum tempor sed.</a></li>
+          <li><a href="#">ВК.</a></li>
+          <li><a href="#">Youtube</a></li>
         </ul>
       </div>
       <div class="col c3">
