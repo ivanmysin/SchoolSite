@@ -480,6 +480,18 @@ ol li textarea {
 	padding:2px;
 	background-color:#fff;
 }
+
+ol li select {
+	width:485px;
+	height:28px;
+	border:1px solid #c0c0c0;
+	margin:0;
+	padding:2px;
+	background-color:#fff;
+	font-size:10pt;
+}
+
+
 ol li .send {
 	margin:16px 0 0 0;
 }
@@ -568,14 +580,6 @@ a.send_link {
   border: .125rem solid red;
   border-radius: .25rem;
 
-/*  background: lighten(red, 30%);
-  box-shadow: 0 0 1em 0 rgba(red, .5);
-  transition: all .2s ease-in;
-  
-  &:hover {
-    color: red;
-    background: white;
-    /* box-shadow: 0 0 3em 1rem red; */
-  }*/
 }
+
 

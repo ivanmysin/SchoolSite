@@ -6,7 +6,6 @@
 {% endblock %}
 
 
-          
 <!--
           <form action="#" method="post" id="sendemail">
             <ol>
@@ -68,12 +67,35 @@
 
                 <li>
                     <label for="university"> Где вы учитесь? </label>
-                    <input id="university" name="university" class="text" placeholder="Университет" />
+                    <!-- <input id="university" name="university" class="text" placeholder="Университет" /> -->
+                    {% block universities %}
+                        {% include 'main/university_list.html' %}
+                    {% endblock %}
+                </li>
+
+                <li>
+                    <label for="faculty"> Факультет/Направление/Кафедра и т.д. </label>
+                    <input id="faculty" name="faculty" class="text" placeholder="Факультет" />
                 </li>
 
                 <li>
                     <label for="education_stage"> Стадия обучения </label>
-                    <input id="education_stage" name="education_stage" class="text" placeholder="Стадия обучения" />
+                    <!-- <input id="education_stage" name="education_stage" class="text" placeholder="Стадия обучения" />-->
+                    <select>
+                        <option>1 курс бакалавриата</option>
+                        <option>2 курс бакалавриата</option>
+                        <option>3 курс бакалавриата</option>
+                        <option>4 курс бакалавриата</option>
+                        <option>1 курс магистратуры</option>
+                        <option>2 курс магистратуры</option>
+                        <option>1 курс аспирантуры</option>
+                        <option>2 курс аспирантуры</option>
+                        <option>3 курс аспирантуры</option>
+                        <option>4 курс аспирантуры</option>
+                        <option>Ординатура</option>
+                        <option>Кандидат наук</option>
+                        <option>Другое (поясню в разделе о себе)</option>
+                    </select>
                 </li>
 
                 <li>
@@ -86,16 +108,12 @@
 
                 <li>
                     <label for="expirience"> Каков ваш опыт в нейронауке? </label>
-                    <textarea id="expirience" name="expirience" rows="8" cols="50">
-                        
-                    </textarea>
+                    <textarea id="expirience" name="expirience" rows="8" cols="50"></textarea>
                 </li>
 
                 <li>
                     <label for="about_participant"> Расскажите немного о себе </label>
-                    <textarea id="about_participant" name="about_participant" rows="8" cols="50">
-
-                    </textarea>
+                    <textarea id="about_participant" name="about_participant" rows="8" cols="50"></textarea>
                </li>
 
                 {% for task in tasks %}
