@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Оргкомитет Школы
+{% endblock %}
+
+{% block content %}
+    <div class="article">
+        <h2><span> {{title_of_list}} </span></h2>
+        {% if persons %}
+            {% for per in persons %}
+              <div class="clr"></div>
+              <div class="img"><img src="{{per.path_to_photo}}" width="156" height="207" alt="" class="fl" /></div>
+              <div class="post_content">
+                <div class="clr"></div>
+                <p> <strong> {{per.strong}} </strong></p>
+                <p> {{per.role}} </p>
+              </div>
+
+        {% endfor %}
+    {% else %}
+        <div class="clr"></div>
+         <div class="post_content">
+             <p> <strong> Ни одного организатора не добавлено  </strong></p>
+        </div>
+    {% endif %}
+
+
+
+    </div>
+{% endblock %} 

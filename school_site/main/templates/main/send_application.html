@@ -101,8 +101,10 @@
                 <li>
                     <label for="form_of_participation"> Выберете форму участия</label>
                     <select id="form_of_participation" name="form_of_participation">
-                        <option value="Хакатон">Хакатон</option>
-                        <option value="Экспериментальная практика">Экспериментальная практика</option>
+                        {% for format in formats%}
+                        <option value="{{format}}">{{format}}</option>
+                        
+                        {% endfor %}
                     </select>
                 </li>
 

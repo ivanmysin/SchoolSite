@@ -15,16 +15,16 @@ for menu in menu_q.values():
 urlpatterns = ([
     path("", views.TextPageView.as_view(), name='home'),
     path("dates", views.dates, name='dates'),
-    path("orgs", views.orgs, name='orgs'),
-    path("lectors", views.lectors, name='lectors'),
-    path("partners", views.partners, name='partners'),
+    path("orgs", views.ListPageView.as_view(), name='orgs'),
+    path("lectors", views.ListPageView.as_view(), name='lectors'),
+    path("partners", views.ListPageView.as_view(), name='partners'),
     path("lodging", views.TextPageView.as_view(), name='lodging'),
     path("payment", views.TextPageView.as_view(), name='payment'),
     path("contacts", views.TextPageView.as_view(), name='contacts'),
     path("history", views.TextPageView.as_view(), name='history'),
     path("faqs", views.faqs, name='faqs'),
 
-    path("send_application", views.send_application, name='send_application'),
+    path("send_application", views.SendPageView.as_view(), name='send_application'),
     path("accepted_application", views.text, name='accepted_application'),
 
 ] + url_menu + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))

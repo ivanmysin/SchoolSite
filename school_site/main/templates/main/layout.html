@@ -172,19 +172,32 @@
         <h2><span>Наши соцсети</span></h2>
         <p>Вы можете узнать больше о Летней школе и нашей лаборатории из наших соцсетей</p>
         <ul class="fbg_ul">
-          <li><a href="#">ВК.</a></li>
-          <li><a href="#">Youtube</a></li>
+          <li><a href="https://vk.com/labson">ВК: группа LabSON</a></li>
+          <li><a href="https://www.youtube.com/@labson1263">Youtube: канал LabSON</a></li>
         </ul>
       </div>
       <div class="col c3">
         <h2><span>Наши контакты</span></h2>
         <p>Федеральное государственное бюджетное учреждение науки Институт теоретической и экспериментальной биофизики Российской академии наук (ИТЭБ РАН)</p>
         <p class="contact_info">
-          <span>Адрес:</span>Россия, Московская область, г. Пущино, ул. Институтская 3</br>
+          {% for contact in contacts %}
+          <span>{{contact.site_subscript}}</span>
+            {% if contact.contact_type == 'another'%} 
+              {{contact.contact}}<br />
+            {% elif contact.contact_type == 'link' %}
+              <a href="{{contact.contact}}">{{contact.contact}}</a><br />
+            {% elif contact.contact_type == 'email' %}
+              <a href="mailto:{{contact.contact}}">{{contact.contact}}</a><br />
+            {% elif contact.contact_type == 'phone' %}
+              <a href="tel:{{contact.contact}}">{{contact.contact}}</a><br />
+            {% endif %}
+
+          <!--<span>Адрес:</span>Россия, Московская область, г. Пущино, ул. Институтская 3</br>
           <span>Телефон:</span> +123-1234-5678<br />
           <span>Почта:</span> <a href="mailto:hippocampus.psn@gmail.com">hippocampus.psn@gmail.com</a> <br />
           <span>Сайт:</span> <a href="http://hippocampus.iteb.ru">hippocampus.iteb.ru</a><br />
-          <span>Сайт института:</span> <a href="https://iteb.ru">iteb.ru</a><br />
+          <span>Сайт института:</span> <a href="https://iteb.ru">iteb.ru</a><br /> -->
+          {% endfor %}
         </p>
       </div>
       <div class="clr"></div>

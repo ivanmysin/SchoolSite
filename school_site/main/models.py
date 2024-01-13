@@ -147,6 +147,16 @@ class QualifyingTasks(models.Model):
         verbose_name = 'Отборочная задача'
         verbose_name_plural = 'Отборочные задачи'
 
+class FormatsOfParticipation(models.Model):
+
+    format_participation = models.CharField('Форма участия', max_length=50, blank=False)
+    is_show = models.BooleanField('Отображать на сайте?', default=True)
+    def __str__(self):
+        return "{}".format(self.format_participation)
+
+    class Meta:
+        verbose_name = 'Форма участия'
+        verbose_name_plural = 'Формы участия'
 
 class ApplicationsForParticipation(models.Model):
     id = models.AutoField(primary_key=True)
@@ -154,10 +164,12 @@ class ApplicationsForParticipation(models.Model):
     surname = models.CharField('Фамилия', max_length=250, blank=False)
     patronymic = models.CharField('Отчество', max_length=250, blank=False)
     email = models.EmailField('Почта', max_length=250, blank=False)
-    phone = models.CharField('Телефон', max_length=20, blank=False)
-    university = models.CharField('ВУЗ', max_length=12, blank=False)
-    education_stage = models.CharField('Стадия обучения', max_length=250, blank=False)
-    form_of_participation = models.CharField('Форма участия', max_length=250, blank=False)
+    phone = models.CharField('Телефон', max_length=20, blank=True)
+    university = models.CharField('ВУЗ', max_length=150, blank=True)
+    faculty = models.CharField('ВУЗ', max_length=150, blank=True)
+
+    education_stage = models.CharField('Стадия обучения', max_length=150, blank=False)
+    form_of_participation = models.CharField('Форма участия', max_length=150, blank=False)
 
     expirience = models.TextField('Опыт в нейронауке', max_length=5000, blank=False)
     about_participant = models.TextField('Расскажите о себе', max_length=5000, blank=False)
@@ -188,3 +200,25 @@ class QualifyingAnswers(models.Model):
     class Meta:
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
+
+class Contacts(models.Model):
+    types = [
+        ("phone", "Телефон"),
+        ("email", "Почта"),
+        ("link", "Ссылка"),
+        ("another", "Другое"),
+    ]
+    site_subscript = models.CharField('Подпись на сайте', max_length=50, blank=True, default="")
+    contact = models.CharField('Контактные данные', max_length=50, blank=False)
+    contact_type = models.CharField('Тип контакта', max_length=50, blank=False, choices=types)
+
+
+    order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
+    is_show = models.BooleanField('Отображать на сайте?', default=True)
+
+
+    def __str__(self):
+        return "{}".format(self.site_subscript)
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Наши контакты'
