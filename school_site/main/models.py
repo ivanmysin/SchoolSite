@@ -209,7 +209,7 @@ class Contacts(models.Model):
         ("another", "Другое"),
     ]
     site_subscript = models.CharField('Подпись на сайте', max_length=50, blank=True, default="")
-    contact = models.CharField('Контактные данные', max_length=50, blank=False)
+    contact = models.CharField('Контактные данные', max_length=250, blank=False)
     contact_type = models.CharField('Тип контакта', max_length=50, blank=False, choices=types)
 
 

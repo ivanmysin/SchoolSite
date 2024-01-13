@@ -81,51 +81,34 @@ class SendPageView(TemplateView, NavView, ContactsView):
 
         return context
 
-# def send_application(request):
-#
+class DatesView(TemplateView, NavView, ContactsView):
+    template_name = "main/dates.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["dates"] = KeyDates.objects.filter(is_show=True).order_by("date")
+        return context
+
+class FAQView(TemplateView, NavView, ContactsView):
+    template_name = "main/faqs.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["faqs"] = Faqs.objects.filter(is_show=True).order_by("order")
+        # context["title_of_page"] = "Частые вопросы"
+        return context
+
+
+# def faqs(request):
+#     faqs = Faqs.objects.filter(is_show=True).order_by("order")
 #     data = {
-#         'tasks': tasks,
+#         'faqs' : faqs,
 #     }
-
-# def orgs(request):
-#     data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
-#
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/orgs.html', {'orgs' : data4render})
-#
-# def lectors(request):
-#     data4render = Lectors.objects.filter(is_show=True).order_by("order").values()
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/lectors.html', {'lectors' : data4render})
-#
-# def partners(request):
-#     data4render = Partners.objects.filter(is_show=True).order_by("order").values()
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/partners.html', {'partners' : data4render})
+#     return (render(request, 'main/faqs.html', data))
 
 
-
-def dates(request):
-    dates = KeyDates.objects.filter(is_show=True).order_by("date")
-    return(render(request, 'main/dates.html', {'dates' : dates}))
 
 def text(request):
-
 
     path = request.path.split(" ")[0][1:]
 
@@ -185,12 +168,44 @@ def text(request):
 
 
 
-def faqs(request):
-    faqs = Faqs.objects.filter(is_show=True).order_by("order")
-    data = {
-        'faqs' : faqs,
-    }
-    return (render(request, 'main/faqs.html', data))
+
+# def dates(request):
+#     dates = KeyDates.objects.filter(is_show=True).order_by("date")
+#     return(render(request, 'main/dates.html', {'dates' : dates}))
+
+
+# def orgs(request):
+#     data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
+#
+#     for data in data4render:
+#         if os.path.isfile(data["path_to_photo"]):
+#             img_file = os.path.split(data["path_to_photo"])[-1]
+#         else:
+#             img_file = "no_photo.jpeg"
+#         data["path_to_photo"] = img_file
+#     return render(request, 'main/orgs.html', {'orgs' : data4render})
+#
+# def lectors(request):
+#     data4render = Lectors.objects.filter(is_show=True).order_by("order").values()
+#     for data in data4render:
+#         if os.path.isfile(data["path_to_photo"]):
+#             img_file = os.path.split(data["path_to_photo"])[-1]
+#         else:
+#             img_file = "no_photo.jpeg"
+#         data["path_to_photo"] = img_file
+#     return render(request, 'main/lectors.html', {'lectors' : data4render})
+#
+# def partners(request):
+#     data4render = Partners.objects.filter(is_show=True).order_by("order").values()
+#     for data in data4render:
+#         if os.path.isfile(data["path_to_photo"]):
+#             img_file = os.path.split(data["path_to_photo"])[-1]
+#         else:
+#             img_file = "no_photo.jpeg"
+#         data["path_to_photo"] = img_file
+#     return render(request, 'main/partners.html', {'partners' : data4render})
+
+
 
 # def send_application(request):
 #     tasks = QualifyingTasks.objects.filter(is_show=True).order_by("order")

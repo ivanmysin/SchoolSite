@@ -6,11 +6,15 @@
 {% endblock %}
 
 {% block content %}
+    <div class="article">
+    <h2><span> Частые вопросы </span></h2>
     {% for faq in faqs %}
-        <div>
+        <div class="post_content_no_photo">
+            <div class="clr"></div>
             <p> <span style="font-weight:bold"> {{ faq.question }} </span></p>
             <p> {{ faq.answer }} </p>
             </br>
         </div>
     {% endfor %}
+    </div>
 {% endblock %}
