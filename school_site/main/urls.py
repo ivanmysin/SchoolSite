@@ -25,6 +25,7 @@ urlpatterns = ([
     path("faqs", views.FAQView.as_view(), name='faqs'),
 
     path("send_application", views.SendPageView.as_view(), name='send_application'),
-    path("accepted_application", views.text, name='accepted_application'),
+    #path("accepted_application", views.text, name='accepted_application'),
+    path("accepted_application", views.TextPageView.as_view(), name='accepted_application'),
 
 ] + url_menu + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))

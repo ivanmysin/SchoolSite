@@ -32,6 +32,67 @@ class TextPageView(TemplateView, NavView, ContactsView):
         context["texts_page"] = texts_page
         return context
 
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(*args, **kwargs)
+        context["texts_page"] = self.process_participation_form()
+        return self.render_to_response(context)
+
+    def process_participation_form(self):
+
+        path = self.request.path.split(" ")[0][1:]
+
+        answers = []
+
+        qualifying_answers = []
+        accepted_data = {}
+
+        if self.request.method == "POST" and path == "accepted_application":
+            try:
+                for key, val in self.request.POST.items():
+                    if key.find("answer_for_task_") != -1:
+                        task_id = int(key.split("_")[-1])
+                        qualifying_answers.append({"task_id": task_id,
+                                                   "answer": val})  # = key + ":  " + qualifying_answers + "\n################\n" + val
+
+                    elif key == "csrfmiddlewaretoken":
+                        continue
+                    else:
+                        accepted_data[key] = val
+
+                jointed_answers = ""
+                task_number = 1
+                for answer in sorted(qualifying_answers, key=lambda d: d['task_id']):
+                    jointed_answers += "Задача № {} \n {} \n#######################\n".format(task_number, answer["answer"])
+                    task_number += 1
+
+                accepted_data["qualifying_answers"] = jointed_answers
+
+                accepted_form = ApplicationsForParticipation(**accepted_data)
+                accepted_form.save()
+
+                for answer in qualifying_answers:
+                    answer_dict = {
+                        "participant_id": accepted_form,
+                        "task_id": QualifyingTasks.objects.get(id=answer["task_id"]),
+                        "answer": answer["answer"],
+                    }
+                    ans = QualifyingAnswers(**answer_dict)
+                    ans.save()
+
+                texts_page = [{
+                    "title": "Ваша заявка успешно отправлена!",
+                    "text": "Подтверждение отправлено на почту {}".format(accepted_data["email"]),
+                }, ]
+
+            except ZeroDivisionError:
+                texts_page = [{
+                    "title": "Форма содержит ошибки!",
+                    "text": "",
+                }, ]
+
+        return texts_page
+
+
 
 
 class ListPageView(TemplateView, NavView, ContactsView):
@@ -108,63 +169,7 @@ class FAQView(TemplateView, NavView, ContactsView):
 
 
 
-def text(request):
 
-    path = request.path.split(" ")[0][1:]
-
-    answers = []
-
-    qualifying_answers = []
-    accepted_data = {}
-
-    if request.method == "POST" and path == "accepted_application":
-        try:
-            for key, val in request.POST.items():
-                if key.find("answer_for_task_") != -1:
-                    task_id = int(key.split("_")[-1])
-                    qualifying_answers.append({"task_id" : task_id, "answer" : val}) # = key + ":  " + qualifying_answers + "\n################\n" + val
-
-                elif key == "csrfmiddlewaretoken":
-                    continue
-                else:
-                    accepted_data[key] = val
-
-            jointed_answers = ""
-            task_number = 1
-            for answer in sorted(qualifying_answers, key=lambda d: d['task_id']):
-                jointed_answers += "Задача № {} \n {} \n\n".format(task_number, answer["answer"])
-                task_number += 1
-
-            accepted_data["qualifying_answers"] = jointed_answers
-            accepted_form = ApplicationsForParticipation(**accepted_data)
-            accepted_form.save()
-
-            for answer in qualifying_answers:
-                answer_dict = {
-                    "participant_id" : accepted_form,
-                    "task_id": QualifyingTasks.objects.get(id=answer["task_id"]),
-                    "answer" : answer["answer"],
-                }
-                ans = QualifyingAnswers(**answer_dict)
-                ans.save()
-
-
-
-            texts_page = [{
-                "title" : "Ваша заявка успешно отправлена!",
-                "text" : "Подтверждение отправлено на почту {}".format(accepted_data["email"]),
-            },]
-
-        except ZeroDivisionError:
-            texts_page = [{
-                "title" : "Форма содержит ошибки!",
-                "text" : "",
-            },]
-    data = {
-        "texts_page" : texts_page,
-        "menu" : [],
-    }
-    return (render(request, 'main/text.html', data))
 
 
 

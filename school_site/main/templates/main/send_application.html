@@ -6,33 +6,6 @@
 {% endblock %}
 
 
-<!--
-          <form action="#" method="post" id="sendemail">
-            <ol>
-              <li>
-                <label for="name">Name (required)</label>
-                <input id="name" name="name" class="text" />
-              </li>
-              <li>
-                <label for="email">Email Address (required)</label>
-                <input id="email" name="email" class="text" />
-              </li>
-              <li>
-                <label for="website">Website</label>
-                <input id="website" name="website" class="text" />
-              </li>
-              <li>
-                <label for="message">Your Message</label>
-                <textarea id="message" name="message" rows="8" cols="50"></textarea>
-              </li>
-              <li>
-                <input type="image" name="imageField" id="imageField" src="images/submit.gif" class="send" />
-                <div class="clr"></div>
-              </li>
-            </ol>
-          </form>
--->
-
 {% block content %}
     <div class="article">
         <h2><span>Форма заявки на участие в школе</span></h2>
@@ -81,20 +54,20 @@
                 <li>
                     <label for="education_stage"> Стадия обучения </label>
                     <!-- <input id="education_stage" name="education_stage" class="text" placeholder="Стадия обучения" />-->
-                    <select>
-                        <option>1 курс бакалавриата</option>
-                        <option>2 курс бакалавриата</option>
-                        <option>3 курс бакалавриата</option>
-                        <option>4 курс бакалавриата</option>
-                        <option>1 курс магистратуры</option>
-                        <option>2 курс магистратуры</option>
-                        <option>1 курс аспирантуры</option>
-                        <option>2 курс аспирантуры</option>
-                        <option>3 курс аспирантуры</option>
-                        <option>4 курс аспирантуры</option>
-                        <option>Ординатура</option>
-                        <option>Кандидат наук</option>
-                        <option>Другое (поясню в разделе о себе)</option>
+                    <select name="education_stage">
+                        <option value="1 курс бакалавриата">1-й курс бакалавриата</option>
+                        <option value="2 курс бакалавриата">2-й курс бакалавриата</option>
+                        <option value="3 курс бакалавриата">3-й курс бакалавриата</option>
+                        <option value="4 курс бакалавриата">4-й курс бакалавриата</option>
+                        <option value="1 курс магистратуры">1-й курс магистратуры</option>
+                        <option value="2 курс магистратуры">2-й курс магистратуры</option>
+                        <option value="1 курс аспирантуры">1-й курс аспирантуры</option>
+                        <option value="2 курс аспирантуры">2-й курс аспирантуры</option>
+                        <option value="3 курс аспирантуры">3-й курс аспирантуры</option>
+                        <option value="4 курс аспирантуры">4-й курс аспирантуры</option>
+                        <option value="Ординатура">Ординатура</option>
+                        <option value="Кандидат наук">Кандидат наук</option>
+                        <option value="Другое (поясню в разделе о себе)">Другое (поясню в разделе о себе)</option>
                     </select>
                 </li>
 

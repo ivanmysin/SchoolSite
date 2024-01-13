@@ -166,7 +166,7 @@ class ApplicationsForParticipation(models.Model):
     email = models.EmailField('Почта', max_length=250, blank=False)
     phone = models.CharField('Телефон', max_length=20, blank=True)
     university = models.CharField('ВУЗ', max_length=150, blank=True)
-    faculty = models.CharField('ВУЗ', max_length=150, blank=True)
+    faculty = models.CharField('Факультет', max_length=150, blank=True)
 
     education_stage = models.CharField('Стадия обучения', max_length=150, blank=False)
     form_of_participation = models.CharField('Форма участия', max_length=150, blank=False)
