@@ -503,6 +503,7 @@ ol li .send {
 
 ol li .send:hover {
 	border-color: red;
+	background:#DCE6E7;
 }
 
 .searchform {
