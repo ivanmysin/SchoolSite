@@ -14,37 +14,30 @@
             {% csrf_token %}
             <ol>
                 <li>
-                    <label for="name"> Имя *</label>
-                    <input type="text" id="name" name="name" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/> <br />
-                    <small> *Поле обязательно для заполнения </small>
+                    <label for="name"> Имя <br /><span class="subscript_field">(Поле обязательно для заполнения)</span> </label>
+                    <input type="text" id="name" name="name" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
+
                 </li>
 
                 <li>
-                    <label for="surname"> Фамилия * </label>
+                    <label for="surname"> Фамилия  <br /><span class="subscript_field">(Поле обязательно для заполнения)</span> </label>
                     <input type="text" id="surname" name="surname" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
-                    <br />
-                    <small> *Поле обязательно для заполнения </small>
                 </li>
 
                 <li>
-                    <label for="patronymic"> Отчество *</label>
+                    <label for="patronymic"> Отчество  <br /> <span class="subscript_field">(Поле обязательно для заполнения)</span> </label>
                     <input type="text" id="patronymic" name="patronymic" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
-                    <br />
-                    <small> *Поле обязательно для заполнения </small>
+
                 </li>
 
                 <li>
-                    <label for="email"> Почта * </label>
+                    <label for="email"> Почта <br /> <span class="subscript_field">(Поле обязательно для заполнения)</span>  </label>
                     <input type="email" id="email" name="email" class="text form-control" data-parsley-required="true" data-parsley-type="email" data-parsley-trigger="change" data-parsley-error-message="Некорректный адрес почты" />
-                    <br />
-                    <small> *Поле обязательно для заполнения </small>
                 </li>
                 
                 <li>
-                    <label for="phone"> Телефон * </label>
+                    <label for="phone"> Телефон <br /> <span class="subscript_field">(Поле обязательно для заполнения)</span>  </label>
                     <input type="text" id="phone" name="phone" class="text" placeholder="Телефон"  data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
-                    <br />
-                    <small> *Поле обязательно для заполнения </small>
                 </li>
 
                 <li>
@@ -56,7 +49,7 @@
                 </li>
 
                 <li>
-                    <label for="faculty"> Факультет/Направление/Кафедра и т.д. </label>
+                    <label for="faculty"> Факультет/Кафедра/Направление и т.д. </label>
                     <input type="text" id="faculty" name="faculty" class="text" placeholder="Факультет" />
                 </li>
 
@@ -93,17 +86,13 @@
                 </li>
 
                 <li>
-                    <label for="expirience"> Каков ваш опыт в нейронауке?* </label>
+                    <label for="expirience"> Опишите ваш опыт в нейронауке, анализе данных, программировании или любой другой опыт релевантный тематике школы<br /> <span class="subscript_field">(Поле обязательно для заполнения. Не менее 10 и не более 5000 символов)</span> </label>
                     <textarea id="expirience" name="expirience" rows="8" cols="50" class="form-control"  data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите нам что-нибудь о своем опыте в нейронауке (не менее 10 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10" data-parsley-error-message="Поле не запонено (напишите не менее 10 символов)"></textarea>
-                    <br />
-                    <small> *Поле обязательно для заполнения (Не менее 10 и не более 5000 символов)</small>
                 </li>
 
                 <li>
-                    <label for="about_participant"> Расскажите немного о себе * </label>
+                    <label for="about_participant"> Расскажите немного о себе <br /> <span class="subscript_field">(Поле обязательно для заполнения. Не менее 20 и не более 5000 символов)</span> </label>
                     <textarea id="about_participant" name="about_participant" rows="8" cols="50"  data-parsley-required="true" class="form-control" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите нам что-нибудь о себе (не менее 20 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10" data-parsley-error-message="Поле не запонено (напишите не менее 20 символов)"></textarea>
-                    <br />
-                    <small> *Поле обязательно для заполнения (Не менее 20 и не более 5000 символов) </small>
                </li>
 
                 {% for task in tasks %}
@@ -112,13 +101,12 @@
                         <p>
                             {{ task.text|safe }}
                         </p>
+                        <span class="subscript_field">(Поле обязательно для заполнения. Не менее 20 и не более 5000 символов)</span>
                         <textarea name="answer_for_task_{{forloop.counter}}"  rows="8" cols="50" class="form-control"  data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите решение задачи (напишите не менее 20 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10" data-parsley-error-message="Поле не запонено (напишите не менее 20 символов)"> </textarea> <br>
-                        <br />
-                        <small> *Поле обязательно для заполнения (Не менее 20 и не более 5000 символов)</small>
                     </li>
                 {% endfor %}
                 <li>
-                    <button type="submit" class="send"> Отправить </button>
+                    <button type="submit" class="send"> Отправить заявку</button>
                 </li>
             </ol>
         </form>

@@ -495,8 +495,16 @@ ol li select {
 
 
 ol li .send {
-	margin:16px 0 0 0;
+	margin: 16px 305px; 0 0; /**/
+	height: 50px;
+	width: 180px;
+	font-size: 12pt;
 }
+
+ol li .send:hover {
+	border-color: red;
+}
+
 .searchform {
 	margin:0 0 16px;
 	padding:20px 20px 12px;
@@ -586,7 +594,12 @@ a.send_link {
 
 .parsley-custom-error-message, .parsley-required{
 	color : red;
-	font-size: 10pt;
+	font-size: 8pt;
+	font-style: italic;
+}
+
+span.subscript_field {
+	font-size: 8pt;
 	font-style: italic;
 }
 
