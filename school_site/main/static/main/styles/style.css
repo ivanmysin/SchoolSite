@@ -584,7 +584,9 @@ a.send_link {
 
 }
 
-.parsley-custom-error-message{
+.parsley-custom-error-message, .parsley-required{
 	color : red;
+	font-size: 10pt;
+	font-style: italic;
 }
 
