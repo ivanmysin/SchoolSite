@@ -10,32 +10,32 @@
     <div class="article">
         <h2><span>Форма заявки на участие в школе</span></h2>
         <div class="clr"></div>
-        <form method="post" action="{% url "accepted_application" %}" id="sendemail">
+        <form method="post" action="{% url "accepted_application" %}" id="send_participation_query">
             {% csrf_token %}
             <ol>
                 <li>
                     <label for="name"> Имя </label>
-                    <input id="name" name="name" class="text" />
+                    <input type="text" id="name" name="name" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
                 </li>
 
                 <li>
                     <label for="surname"> Фамилия </label>
-                    <input id="surname" name="surname" class="text" />
+                    <input type="text" id="surname" name="surname" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
                 </li>
 
                 <li>
                     <label for="patronymic"> Отчество </label>
-                    <input id="patronymic" name="patronymic" class="text" />
+                    <input type="text" id="patronymic" name="patronymic" class="text form-control" data-parsley-required="true" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
                 </li>
 
                 <li>
                     <label for="email"> Почта </label>
-                    <input id="email" name="email" class="text" />
+                    <input type="email" id="email" name="email" class="text form-control" data-parsley-required="true" data-parsley-type="email" data-parsley-trigger="change" data-parsley-error-message="Некорректный адрес почты" />
                 </li>
                 
                 <li>
                     <label for="phone"> Телефон </label>
-                    <input id="phone" name="phone" class="text" placeholder="Телефон" />
+                    <input type="text" id="phone" name="phone" class="text" placeholder="Телефон" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-error-message="Поле не запонено"/>
                 </li>
 
                 <li>
@@ -48,13 +48,14 @@
 
                 <li>
                     <label for="faculty"> Факультет/Направление/Кафедра и т.д. </label>
-                    <input id="faculty" name="faculty" class="text" placeholder="Факультет" />
+                    <input type="text" id="faculty" name="faculty" class="text" placeholder="Факультет" />
                 </li>
 
                 <li>
                     <label for="education_stage"> Стадия обучения </label>
                     <!-- <input id="education_stage" name="education_stage" class="text" placeholder="Стадия обучения" />-->
                     <select name="education_stage">
+                        <option value="Не выбрано">Не выбрано</option>
                         <option value="1 курс бакалавриата">1-й курс бакалавриата</option>
                         <option value="2 курс бакалавриата">2-й курс бакалавриата</option>
                         <option value="3 курс бакалавриата">3-й курс бакалавриата</option>
@@ -83,12 +84,12 @@
 
                 <li>
                     <label for="expirience"> Каков ваш опыт в нейронауке? </label>
-                    <textarea id="expirience" name="expirience" rows="8" cols="50"></textarea>
+                    <textarea id="expirience" name="expirience" rows="8" cols="50" class="form-control" data-parsley-trigger="keyup" data-parsley-minlength="10" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите нам что-нибудь о своем опыте в нейронауке (не менее 10 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10"></textarea>
                 </li>
 
                 <li>
                     <label for="about_participant"> Расскажите немного о себе </label>
-                    <textarea id="about_participant" name="about_participant" rows="8" cols="50"></textarea>
+                    <textarea id="about_participant" name="about_participant" rows="8" cols="50" class="form-control" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите нам что-нибудь о себе (не менее 20 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10"></textarea>
                </li>
 
                 {% for task in tasks %}
@@ -97,7 +98,7 @@
                         <p>
                             {{ task.text|safe }}
                         </p>
-                        <textarea name="answer_for_task_{{forloop.counter}}"  rows="8" cols="50"> </textarea> <br>
+                        <textarea name="answer_for_task_{{forloop.counter}}"  rows="8" cols="50" class="form-control" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="5000" data-parsley-minlength-message="Напишите решение задачи (не менее 20 символов)" data-parsley-maxlength-message="Напишите не более 5000 символов"  data-parsley-validation-threshold="10"> </textarea> <br>
                     </li>
                 {% endfor %}
                 <li>

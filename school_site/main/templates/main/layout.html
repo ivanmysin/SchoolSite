@@ -17,12 +17,20 @@
 <script type="text/javascript" src="{% static 'main/js/jquery-1.9.0.min.js' %}"></script>
 <!-- <script type="text/javascript" src="{% static 'main/js/coin-slider.min.js' %}"></script> -->
 <script type="text/javascript" src="{% static 'main/js/sss.min.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'main/js/parsley.min.js' %}"></script>
 
 <script type="text/javascript">
   var jQuery_1_9_0 = $.noConflict(true);
   jQuery_1_9_0(function($) {
     $('.slider').sss();
+    $('#send_participation_query').parsley().on('field:validated', function() {
+      var ok = $('.parsley-error').length === 0;
+      $('.bs-callout-info').toggleClass('hidden', !ok);
+      $('.bs-callout-warning').toggleClass('hidden', ok);
+    })
+    .on('form:submit', function() {
+      return false; // Don't submit form for this demo
+    });
   });
   //jQuery_1_9_0(function(){
   // Initialize the gallery
