@@ -2,10 +2,11 @@ from django.db import models
 from django.utils.html import mark_safe
 from ckeditor.fields import RichTextField
 
-# Create your models here.
 
 class SiteMenu(models.Model):
     pages_types = [ ("text", "Текст"), ("list_with_photo", "Список с фото"),]
+
+    id = models.AutoField(primary_key=True)
 
     name = models.CharField('Отображение на сайте', max_length=50, blank=False)
     link = models.CharField('Ссылка (на английском)', max_length=50, blank=False)
@@ -108,6 +109,16 @@ class Faqs(models.Model):
         verbose_name_plural = 'Частые вопросы'
 
 class TextPage(models.Model):
+    # class PagesChoise(Choices):
+    #     choices = []
+    #     def __init__(self):
+    #         pages = SiteMenu.objects.filter(page_type='text').values()
+    #
+    #
+    #         for p in pages:
+    #             PagesChoise.choices.append((p.link, p.name))
+
+
     pages = [
         ("lodging", "Размещение"),
         ("payment", "Оргвзнос"),
@@ -115,10 +126,20 @@ class TextPage(models.Model):
         ("history", "История"),
     ]
 
+    # SiteMenu
+    # name = models.CharField('Отображение на сайте', max_length=50, blank=False)
+    # link = models.CharField('Ссылка (на английском)', max_length=50, blank=False)
+    # pages_types = [ ("text", "Текст"), ("list_with_photo", "Список с фото"),]
+    # page_type = models.CharField('Тип страницы', max_length=250, blank=False, choices=pages_types)
+
+    id = models.AutoField(primary_key=True)
 
     title = models.CharField('Заголовок', max_length=250, blank=False)
     text = RichTextField('Текст', blank=False)
-    page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
+
+    #page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
+    page = models.ForeignKey(SiteMenu, on_delete=models.CASCADE)
+
     path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
@@ -222,3 +243,32 @@ class Contacts(models.Model):
     class Meta:
         verbose_name = 'Контакт'
         verbose_name_plural = 'Наши контакты'
+
+class Gallery(models.Model):
+
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/gallery/', blank=True, default="")
+    url = models.URLField('URL на внешний ресурс', blank=True, default="", max_length=250)
+    order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
+    is_show = models.BooleanField('Отображать на сайте?', blank=True, default=True)
+    is_show_in_header = models.BooleanField('Отображать в загловке сайта?', blank=True, default=False)
+    is_show_in_common_gallery = models.BooleanField('Отображать в общей галерее?', blank=True, default=True)
+    comment = models.CharField('Комментарий (не отображается на сайте)', blank=True, max_length=250)
+
+    def __str__(self):
+        return "{}".format(self.comment)
+
+    class Meta:
+        verbose_name = 'Фотография'
+        verbose_name_plural = 'Фотографии'
+
+class GalleryTextConnections(models.Model):
+
+    text_id = models.ForeignKey(TextPage, on_delete=models.DO_NOTHING)
+    photo_id = models.ForeignKey(Gallery, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return "{} {}".format(self.text_id.title, self.photo_id.comment)
+
+    class Meta:
+        verbose_name = 'Связь'
+        verbose_name_plural = 'Связи текстов и картинок'

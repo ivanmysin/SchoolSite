@@ -3,10 +3,9 @@ import os
 from .models import Organizators, Lectors, Partners, \
         KeyDates, Faqs, TextPage, QualifyingTasks,\
         ApplicationsForParticipation, SiteMenu, QualifyingAnswers,\
-        FormatsOfParticipation, Contacts
-#from school_site.main.templates.forms import ApplicationsForParticipationForm, QualifyingAnswersForm
+        FormatsOfParticipation, Contacts, Gallery, GalleryTextConnections
 from django.views.generic.base import ContextMixin
-from django.views.generic import View, TemplateView
+from django.views.generic import TemplateView
 
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
@@ -19,7 +18,15 @@ class ContactsView(ContextMixin):
         context = super().get_context_data(*args, **kwargs)
         context["contacts"] = Contacts.objects.filter(is_show=True).order_by("order")
         return context
-class TextPageView(TemplateView, NavView, ContactsView):
+
+class Galleries(ContextMixin):
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["header_gallery"] = Gallery.objects.filter(is_show_in_header=True).order_by("order")
+        context["common_gallery"] = Gallery.objects.filter(is_show_in_common_gallery=True).order_by("order")
+        return context
+
+class TextPageView(TemplateView, NavView, ContactsView, Galleries):
     template_name = "main/text.html"
 
     # other methods and stuffs
@@ -27,7 +34,12 @@ class TextPageView(TemplateView, NavView, ContactsView):
         context = super().get_context_data(*args, **kwargs)
 
         path = self.request.path.split(" ")[0][1:]
-        texts_page = TextPage.objects.filter(is_show=True, page=path).order_by("order")
+
+        try:
+            menu = SiteMenu.objects.filter(link=path)[0]
+            texts_page = TextPage.objects.filter(is_show=True, page=menu).order_by("order")
+        except IndexError:
+            texts_page = [{"title" : "Страница не найдена", "text":""}, ]
 
         context["texts_page"] = texts_page
         return context
@@ -95,7 +107,7 @@ class TextPageView(TemplateView, NavView, ContactsView):
 
 
 
-class ListPageView(TemplateView, NavView, ContactsView):
+class ListPageView(TemplateView, NavView, ContactsView, Galleries):
     template_name = "main/list_page.html"
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -132,7 +144,7 @@ class ListPageView(TemplateView, NavView, ContactsView):
         context["persons"] = data4render
         return context
 
-class SendPageView(TemplateView, NavView, ContactsView):
+class SendPageView(TemplateView, NavView, ContactsView, Galleries):
     template_name = "main/send_application.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -142,7 +154,7 @@ class SendPageView(TemplateView, NavView, ContactsView):
 
         return context
 
-class DatesView(TemplateView, NavView, ContactsView):
+class DatesView(TemplateView, NavView, ContactsView, Galleries):
     template_name = "main/dates.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -150,7 +162,7 @@ class DatesView(TemplateView, NavView, ContactsView):
         context["dates"] = KeyDates.objects.filter(is_show=True).order_by("date")
         return context
 
-class FAQView(TemplateView, NavView, ContactsView):
+class FAQView(TemplateView, NavView, ContactsView, Galleries):
     template_name = "main/faqs.html"
 
     def get_context_data(self, *args, **kwargs):

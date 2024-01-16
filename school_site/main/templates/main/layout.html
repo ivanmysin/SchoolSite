@@ -34,9 +34,6 @@
   });
 </script>
 
-<script type="text/javascript" src="{% static 'main/js/jquery-3.2.1.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'main/js/touchTouch.jquery.js' %}"></script>
-
 </head>
 <body>
 <div class="main">
@@ -50,11 +47,11 @@
           <li><a href="{% url 'home' %}"><span>Главная</span></a></li>
           <li><a href="{% url 'orgs' %}"><span>Организаторы</span></a></li>
           <li><a href="{% url 'lectors' %}"><span>Лекторы</span></a></li>
-          <li><a href="{% url 'history' %}"><span>История</span></a></li>
-          <!--
-          <li><a href="{% url "partners" %}"><span>Партнеры</span></a></li>
-          <li><a href="{% url "dates" %}"><span>Ключевые даты</span></a></li>
-          <li><a href="{% url "payment" %}"><span>Оргвзносы</span></a></li>
+          <!--<li><a href="{ url 'history' }"><span>История</span></a></li>
+
+          <li><a href="{ url "partners" }"><span>Партнеры</span></a></li>
+          <li><a href="{ url "dates" }"><span>Ключевые даты</span></a></li>
+          <li><a href="{ url "payment" }"><span>Оргвзносы</span></a></li>
 
           <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
           {% for nav_link in nav_links %}
@@ -66,10 +63,18 @@
     <div class="clr"></div>
     <div class="header_resize">
       <div class="slider_">
-        <div class="slider"> <!-- id="coin-slider"  -->
-          <img src="{% static 'main/images/header_slider/_OTEmb6WUbo.jpg' %}" width="960" height="500" alt="" />
+        <div class="slider"> <!-- id="coin-slider"
+
           <img src="{% static 'main/images/header_slider/5Ftps8giBe0.jpg' %}" width="960" height="500" alt="" />
-          <img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" />
+          <img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" />-->
+          {% for img in header_gallery %}
+            {% if img.path_to_photo%}
+              <img src="{{img.path_to_photo}}" width="960" height="500" alt="" />
+
+            {% elif img.url and not img.path_to_photo %}
+              <img src="{{img.url}}" width="960" height="500" alt="" />
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
 
@@ -121,10 +126,10 @@
             <li><a href={% url "lectors" %}> Лекторы </a> </li>
             <li><a href={% url "partners" %}> Партнеры</a></li>
             <li><a href={% url "dates" %}> Ключевые даты </a></li>
-            <li><a href={% url "lodging" %}> Размещение </a></li>
-            <li><a href={% url "payment" %}> Оргвзнос </a></li>
-            <li><a href={% url "contacts" %}> Контакты </a></li>
-            <li><a href={% url "history" %}> История </a></li>
+            <!--<li><a href={ url "lodging" }> Размещение </a></li>
+            <li><a href={ url "payment" }> Оргвзнос </a></li>
+            <li><a href={ url "contacts" }> Контакты </a></li>
+            <li><a href={ url "history" }> История </a></li>-->
             <li><a href={% url "faqs" %}> ЧаВо </a></li>
             <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
           </ul>
@@ -157,19 +162,28 @@
       <div class="col c1">
         <h2><span>Галерея</span></h2>
         <div class="thumbs">
-          <a href={% static 'main/images/gallery/gal1.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal1.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <!--<a href={% static 'main/images/gallery/gal1.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal1.jpg' %}); width:75px; height:75px;" class="gal"> </a>
           <a href={% static 'main/images/gallery/gal2.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal2.jpg' %}); width:75px; height:75px;" class="gal"> </a>
           <a href={% static 'main/images/gallery/gal3.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal3.jpg' %}); width:75px; height:75px;" class="gal"> </a>
           <a href={% static 'main/images/gallery/gal4.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal4.jpg' %}); width:75px; height:75px;" class="gal"> </a>
           <a href={% static 'main/images/gallery/gal5.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal5.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal6.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal6.jpg' %}); width:75px; height:75px;" class="gal"> </a>
+          <a href={% static 'main/images/gallery/gal6.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal6.jpg' %}); width:75px; height:75px;" class="gal"> </a> -->
+          {% for img in common_gallery %}
 
-            <!--<img src="{% static 'main/images/gallery/gal1.jpg' %}" width="75" height="75" alt="" class="gal" />
-          <a href="#"><img src="{% static 'main/images/gallery/gal2.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
-          <a href="#"><img src="{% static 'main/images/gallery/gal3.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
-          <a href="#"><img src="{% static 'main/images/gallery/gal4.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
-          <a href="#"><img src="{% static 'main/images/gallery/gal5.jpg' %}" width="75" height="75" alt="" class="gal" /></a>
-          <a href="#"><img src="{% static 'main/images/gallery/gal6.jpg' %}" width="75" height="75" alt="" class="gal" /></a>-->
+            {% if forloop.counter < 7 %}
+              {% if img.path_to_photo %}
+                <a href={{img.path_to_photo}} style="background-image:url({{img.path_to_photo}}); width:75px; height:75px;" class="gal"> </a>
+              {% elif img.url and not img.path_to_photo %}
+                <a href={{img.url}} style="background-image:url({{img.url}}); width:75px; height:75px;" class="gal"> </a>
+              {% endif %}
+            {% else %}
+              {% if img.path_to_photo %}
+                <a href={{img.path_to_photo}} > </a>
+              {% elif img.url and not img.path_to_photo %}
+                <a href={{img.url}}> </a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
       <div class="col c2">
@@ -216,12 +230,14 @@
   </div>
 </div>
 </body>
+
+<script type="text/javascript" src="{% static 'main/js/jquery-3.2.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/touchTouch.jquery.js' %}"></script>
 <script type="text/javascript">
-    console.log($().jquery);
+    // console.log($().jquery);
     $(function(){
       // Initialize the gallery
       $('.thumbs a').touchTouch();
-
     });
 </script>
 
