@@ -108,50 +108,6 @@ class Faqs(models.Model):
         verbose_name = 'Вопрос'
         verbose_name_plural = 'Частые вопросы'
 
-class TextPage(models.Model):
-    # class PagesChoise(Choices):
-    #     choices = []
-    #     def __init__(self):
-    #         pages = SiteMenu.objects.filter(page_type='text').values()
-    #
-    #
-    #         for p in pages:
-    #             PagesChoise.choices.append((p.link, p.name))
-
-
-    pages = [
-        ("lodging", "Размещение"),
-        ("payment", "Оргвзнос"),
-        ("contacts", "Контакты"),
-        ("history", "История"),
-    ]
-
-    # SiteMenu
-    # name = models.CharField('Отображение на сайте', max_length=50, blank=False)
-    # link = models.CharField('Ссылка (на английском)', max_length=50, blank=False)
-    # pages_types = [ ("text", "Текст"), ("list_with_photo", "Список с фото"),]
-    # page_type = models.CharField('Тип страницы', max_length=250, blank=False, choices=pages_types)
-
-    id = models.AutoField(primary_key=True)
-
-    title = models.CharField('Заголовок', max_length=250, blank=False)
-    text = RichTextField('Текст', blank=False)
-
-    #page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
-    page = models.ForeignKey(SiteMenu, on_delete=models.CASCADE)
-
-    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
-    order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
-    is_show = models.BooleanField('Отображать на сайте?', default=True)
-
-
-    def __str__(self):
-        return "{}".format(self.title)
-
-    class Meta:
-        verbose_name = 'Текст для страницы'
-        verbose_name_plural = 'Тексты для страниц'
-
 class QualifyingTasks(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField('Заголовок', max_length=250, blank=False)
@@ -261,14 +217,48 @@ class Gallery(models.Model):
         verbose_name = 'Фотография'
         verbose_name_plural = 'Фотографии'
 
-class GalleryTextConnections(models.Model):
+# class GalleryTextConnections(models.Model):
+#
+#     text = models.ForeignKey(TextPage, on_delete=models.DO_NOTHING, related_name="article")
+#     photo = models.ForeignKey(Gallery, on_delete=models.DO_NOTHING, related_name="gallery")
+#
+#     def __str__(self):
+#         return "{} {}".format(self.text_id.title, self.photo_id.comment)
+#
+#     class Meta:
+#         verbose_name = 'Связь'
+#         verbose_name_plural = 'Связи текстов и картинок'
 
-    text_id = models.ForeignKey(TextPage, on_delete=models.DO_NOTHING)
-    photo_id = models.ForeignKey(Gallery, on_delete=models.DO_NOTHING)
+class TextPage(models.Model):
+    # class PagesChoise(Choices):
+    #     choices = []
+    #     def __init__(self):
+    #         pages = SiteMenu.objects.filter(page_type='text').values()
+    #
+    #
+    #         for p in pages:
+    #             PagesChoise.choices.append((p.link, p.name))
+
+
+    id = models.AutoField(primary_key=True)
+
+    title = models.CharField('Заголовок', max_length=250, blank=False)
+    text = RichTextField('Текст', blank=False)
+
+    #page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
+    page = models.ForeignKey(SiteMenu, on_delete=models.CASCADE)
+
+    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
+    images = models.ManyToManyField(Gallery)
+    order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
+    is_show = models.BooleanField('Отображать на сайте?', default=True)
+
+
+
 
     def __str__(self):
-        return "{} {}".format(self.text_id.title, self.photo_id.comment)
+        return "{}".format(self.title)
 
     class Meta:
-        verbose_name = 'Связь'
-        verbose_name_plural = 'Связи текстов и картинок'
+        verbose_name = 'Текст для страницы'
+        verbose_name_plural = 'Тексты для страниц'

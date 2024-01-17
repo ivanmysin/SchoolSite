@@ -3,7 +3,7 @@ import os
 from .models import Organizators, Lectors, Partners, \
         KeyDates, Faqs, TextPage, QualifyingTasks,\
         ApplicationsForParticipation, SiteMenu, QualifyingAnswers,\
-        FormatsOfParticipation, Contacts, Gallery, GalleryTextConnections
+        FormatsOfParticipation, Contacts, Gallery
 from django.views.generic.base import ContextMixin
 from django.views.generic import TemplateView
 
@@ -35,9 +35,16 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
 
         path = self.request.path.split(" ")[0][1:]
 
+
+
         try:
             menu = SiteMenu.objects.filter(link=path)[0]
-            texts_page = TextPage.objects.filter(is_show=True, page=menu).order_by("order")
+            texts_page_query_set = TextPage.objects.filter(is_show=True, page=menu).order_by("order")
+            texts_page = list( texts_page_query_set.values() )
+            for tp_idx, tpqs in enumerate(texts_page_query_set):
+                texts_page[tp_idx]["images"] = tpqs.images.all().values()
+            # print(texts_page)
+
         except IndexError:
             texts_page = [{"title" : "Страница не найдена", "text":""}, ]
 

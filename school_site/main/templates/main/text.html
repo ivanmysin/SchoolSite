@@ -11,12 +11,20 @@
     <div class="article">
         <h2><span> {{ text_block.title }} </span></h2>
         <div class="clr"></div>
-        {% if text_block.path_to_photo %}
-            <div class="img"><img src="{% static 'main/images/no_photo.jpeg' %}" width="156" height="207" alt="" class="fl" /></div>
-            <div class="post_content">
-        {% else %}
-            <div class="post_content_no_photo">
-        {% endif %}
+
+        <div class="thumbs article_images" >
+        {% for img in text_block.images %}
+            {% if forloop.counter == 1 %}
+                <a href="{{ img.path_to_photo }}" style="background-image:url({{img.path_to_photo}})" class="article_gallery" data-gallery="two"> </a>
+            {% else %}
+                <a href="{{ img.path_to_photo }}" data-gallery="two"> </a>
+            {% endif %}
+        {% endfor %}
+        </div>
+            
+        
+
+        <div class="post_content_no_photo">
             <div class="clr"></div>
             <p> {{ text_block.text|safe }} </p>
         </div>

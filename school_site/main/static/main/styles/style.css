@@ -401,7 +401,23 @@ p.infopost span.date {
 	margin:0 8px 8px 0;
 	padding:0;
 	border:4px solid #fff;
+	background-size: cover; 
 }
+
+.thumbs a.article_gallery {
+	display: block;
+	float:left;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	padding:0;
+	width: 640px;
+	min-height: 400px;
+	background-size: cover; 
+}
+
+
 .fbg .col {
 	margin:0;
 	float:left;
