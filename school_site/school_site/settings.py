@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import os
 from pathlib import Path
+from . import myconfig
 
 # change sqlite3 package by pysqlite3 (new version of sqlite)
 __import__('pysqlite3')
@@ -20,15 +21,15 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path( os.path.abspath(__file__)).resolve().parent.parent
-print(BASE_DIR)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-jo@)3541=mo=s&lj35oj5#w*9d_zx1bw)f8xva973opr8zio9e"
+SECRET_KEY = myconfig.SECRET_KEY  # "django-insecure-jo@)3541=mo=s&lj35oj5#w*9d_zx1bw)f8xva973opr8zio9e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = myconfig.DEBUG
 
 ALLOWED_HOSTS = ['127.0.0.1', 'labson.ru', 'www.labson.ru']
 

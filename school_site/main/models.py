@@ -211,7 +211,7 @@ class Gallery(models.Model):
     comment = models.CharField('Комментарий (не отображается на сайте)', blank=True, max_length=250)
 
     def __str__(self):
-        return "{}".format(self.comment)
+        return "{} {}".format(self.id, self.comment)
 
     class Meta:
         verbose_name = 'Фотография'
