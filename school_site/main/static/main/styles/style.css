@@ -106,12 +106,22 @@ h1 small {
 	text-transform:none;
 	color:#617e84;
 }
-/*
+
 .slider {
-	margin:0;
-	padding:0 0 24px;
-	position:absolute;
-}*/
+	width: 960px;
+	height: 500px;
+}
+
+
+.slider .sss img {
+	max-width: 960px;
+	max-height: 500px;
+  /*object-fit: contain;*/
+/* or */
+  object-fit: cover;
+} 
+
+
 .rss {
 	padding:18px 20px 0 0;
 	float:right;

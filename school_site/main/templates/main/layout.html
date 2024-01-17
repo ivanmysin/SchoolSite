@@ -62,21 +62,19 @@
       </div>
     <div class="clr"></div>
     <div class="header_resize">
-      <div class="slider_">
         <div class="slider"> <!-- id="coin-slider"
 
           <img src="{% static 'main/images/header_slider/5Ftps8giBe0.jpg' %}" width="960" height="500" alt="" />
           <img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" />-->
           {% for img in header_gallery %}
             {% if img.path_to_photo%}
-              <img src="{{img.path_to_photo}}" width="960" height="500" alt="" />
-
+              <img src="{{img.path_to_photo}}" alt="" />
             {% elif img.url and not img.path_to_photo %}
-              <img src="{{img.url}}" width="960" height="500" alt="" />
+              <img src="{{img.url}}" alt="" />
             {% endif %}
           {% endfor %}
         </div>
-      </div>
+
 
       <!-- <div class="logo">
        
