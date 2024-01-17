@@ -335,6 +335,12 @@ p.infopost span.date {
 	color:#617e84;
 	font-weight:bold;
 }
+.article_images span.article_gallery_subsript {
+	font-size: 10pt;
+	font-style: italic;
+	color: black;
+}
+
 .post_content a.rm {
 	display:block;
 	float:left;

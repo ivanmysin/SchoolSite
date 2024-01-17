@@ -14,12 +14,23 @@
 
         <div class="thumbs article_images" >
         {% for img in text_block.images %}
-            {% if forloop.counter == 1 %}
-                <a href="{{ img.path_to_photo }}" style="background-image:url({{img.path_to_photo}})" class="article_gallery" data-gallery="two"> </a>
-            {% else %}
-                <a href="{{ img.path_to_photo }}" data-gallery="two"> </a>
+            {% if img.path_to_photo %}
+                {% if forloop.counter == 1 %}
+                    <a href="{{ img.path_to_photo }}" style="background-image:url({{img.path_to_photo}})" class="article_gallery" data-gallery="two"> </a>
+                {% else %}
+                    <a href="{{ img.path_to_photo }}" data-gallery="two"> </a>
+                {% endif %}
+            {% elif img.url %}
+                {% if forloop.counter == 1 %}
+                    <a href="{{ img.url }}" style="background-image:url({{img.url }})" class="article_gallery" data-gallery="two"> </a>
+                {% else %}
+                    <a href="{{ img.url  }}" data-gallery="two"> </a>
+                {% endif %}
             {% endif %}
         {% endfor %}
+        {% if text_block.images|length > 1 %}
+            <span class="article_gallery_subsript">Нажмите на картинку, что посмотреть всю галерею</span>
+        {% endif %}
         </div>
             
         
