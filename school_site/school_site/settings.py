@@ -20,7 +20,7 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 #sys.path.append("../../")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path( os.path.abspath(__file__)).resolve().parent.parent
+BASE_DIR = myconfig.BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
