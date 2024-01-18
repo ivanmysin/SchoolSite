@@ -6,7 +6,9 @@ from .models import Organizators, Lectors, Partners, \
         FormatsOfParticipation, Contacts, Gallery
 from django.views.generic.base import ContextMixin
 from django.views.generic import TemplateView
-
+import smtplib
+from email.message import EmailMessage
+from school_site import myconfig
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -98,9 +100,10 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
                     ans = QualifyingAnswers(**answer_dict)
                     ans.save()
 
+                send_email(accepted_data)
                 texts_page = [{
                     "title": "Ваша заявка успешно отправлена!",
-                    "text": "Подтверждение отправлено на почту {}".format(accepted_data["email"]),
+                    "text": "Подтверждение отправлено на почту {}. Если письмо не пришло, проверьте спам.".format(accepted_data["email"]),
                 }, ]
 
             except ZeroDivisionError:
@@ -179,61 +182,41 @@ class FAQView(TemplateView, NavView, ContactsView, Galleries):
         return context
 
 
-# def faqs(request):
-#     faqs = Faqs.objects.filter(is_show=True).order_by("order")
-#     data = {
-#         'faqs' : faqs,
-#     }
-#     return (render(request, 'main/faqs.html', data))
+def send_email(form_data):
 
 
 
+    sender_email_address = myconfig.sender_email_address
+    receiver_email_address = form_data["email"]
+    email_smtp = myconfig.email_smtp
+    email_password = myconfig.email_password
 
+    # create an email message object
+    email_subject = 'Оргкомитет летней научной школы "Введение в нейробиологию внимания и памяти"'
+    message = EmailMessage()
 
+    # configure email headers
+    message['Subject'] = email_subject
+    message['From'] = sender_email_address
+    message['To'] = receiver_email_address
 
+    # set email body text
+    with open("./main/templates/main/Confirmation_Letter.html", mode="r") as f:
+        email_body_template = f.read()
+    email_body = email_body_template.format(name=form_data["name"], patronymic=form_data["patronymic"])
+    message.set_content(email_body, subtype='html')
 
+    # set smtp server and port
+    server = smtplib.SMTP(email_smtp, '587')
+    # identify this client to the SMTP server
+    server.ehlo()
+    # secure the SMTP connection
+    server.starttls()
 
-# def dates(request):
-#     dates = KeyDates.objects.filter(is_show=True).order_by("date")
-#     return(render(request, 'main/dates.html', {'dates' : dates}))
-
-
-# def orgs(request):
-#     data4render = Organizators.objects.filter(is_show=True).order_by("order").values()
-#
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/orgs.html', {'orgs' : data4render})
-#
-# def lectors(request):
-#     data4render = Lectors.objects.filter(is_show=True).order_by("order").values()
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/lectors.html', {'lectors' : data4render})
-#
-# def partners(request):
-#     data4render = Partners.objects.filter(is_show=True).order_by("order").values()
-#     for data in data4render:
-#         if os.path.isfile(data["path_to_photo"]):
-#             img_file = os.path.split(data["path_to_photo"])[-1]
-#         else:
-#             img_file = "no_photo.jpeg"
-#         data["path_to_photo"] = img_file
-#     return render(request, 'main/partners.html', {'partners' : data4render})
-
-
-
-# def send_application(request):
-#     tasks = QualifyingTasks.objects.filter(is_show=True).order_by("order")
-#     data = {
-#         'tasks': tasks,
-#     }
-#     return (render(request, 'main/send_application.html', data))
+    # login to email account
+    server.login(sender_email_address, email_password)
+    # send email
+    server.send_message(message)
+    # close connection to server
+    server.quit()
+    return
