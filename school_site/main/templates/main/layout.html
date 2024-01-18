@@ -176,13 +176,25 @@
 </div>
 </body>
 
-<script type="text/javascript" src="{% static 'main/js/jquery-3.2.1.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'main/js/jquery-3.2.1.min.js' %}"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+
 <script type="text/javascript" src="{% static 'main/js/touchTouch.jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/vcollapse.js' %}"></script>
 <script type="text/javascript">
-    // console.log($().jquery);
-    $(function(){
+    $( document ).ready(function() {
       // Initialize the gallery
       $('.thumbs a').touchTouch();
+
+      // Initialize the accordion for FAQs
+      $('.accordion').vCollapse({
+        'any': true,
+        'onLoad': 'none',
+        'speed': 300,
+        'easing': 'ease-in-out',
+        //'autoScroll': true,
+      });
     });
 </script>
 

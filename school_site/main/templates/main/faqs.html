@@ -8,13 +8,19 @@
 {% block content %}
     <div class="article">
     <h2><span> Частые вопросы </span></h2>
+
+    <div class="accordion">
     {% for faq in faqs %}
         <div class="post_content_no_photo">
             <div class="clr"></div>
-            <p> <span style="font-weight:bold"> {{ faq.question }} </span></p>
-            <p> {{ faq.answer }} </p>
-            </br>
+            <div class="accordion_container">
+                <div class="vcollapse-toggle" data-target="#cc{{forloop.counter}}">{{ faq.question }}</div>
+                <div class="vcollapse-content" id="cc{{forloop.counter}}">
+                    {{ faq.answer|safe }}
+                </div>
+            </div>
         </div>
     {% endfor %}
+    </div>
     </div>
 {% endblock %}

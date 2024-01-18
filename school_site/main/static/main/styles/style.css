@@ -651,3 +651,40 @@ span.subscript_field {
 	font-style: italic;
 }
 
+.article .accordion {
+  /*margin: 30px auto;
+  max-width: 640px;*/
+  min-height: 600px;
+}
+
+.article .accordion_container {
+	margin-top:10px;
+	margin-bottom: 10px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.vcollapse-toggle {
+  background-color: #FDF8F8;
+  color: #777;
+  font-weight: bold;
+ 	padding: 10px;
+ 	margin : 0px;
+
+}
+
+.vcollapse-toggle:hover {
+  background-color: #FDF8F8;
+  border-color: blue;
+  border-style: dotted;
+  border-width: 1px;
+}
+
+.vcollapse-content {
+
+	background-color: #FDF8F8;
+	color: #000;
+	padding: 10px;
+	margin : 0px;
+}
+
