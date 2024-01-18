@@ -58,15 +58,12 @@
           {% for nav_link in nav_links %}
             <li><a href="{{nav_link.link}}"><span>{{nav_link.name}}</span></a></li>
           {% endfor %}
-          <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
+          <li><a href={% url "send_application" %} class="send_link"> Подать заявку  </a> </li>
         </ul>
       </div>
     <div class="clr"></div>
     <div class="header_resize">
-        <div class="slider"> <!-- id="coin-slider"
-
-          <img src="{% static 'main/images/header_slider/5Ftps8giBe0.jpg' %}" width="960" height="500" alt="" />
-          <img src="{% static 'main/images/header_slider/tK7ydAaI_tA.jpg' %}" width="960" height="500" alt="" />-->
+        <div class="slider">
           {% for img in header_gallery %}
             {% if img.path_to_photo%}
               <img src="{{img.path_to_photo}}" alt="" />
@@ -104,33 +101,10 @@
             <li><a href={% url "lectors" %}> Лекторы </a> </li>
             <li><a href={% url "partners" %}> Партнеры</a></li>
             <li><a href={% url "dates" %}> Ключевые даты </a></li>
-            <!--<li><a href={ url "lodging" }> Размещение </a></li>
-            <li><a href={ url "payment" }> Оргвзнос </a></li>
-            <li><a href={ url "contacts" }> Контакты </a></li>
-            <li><a href={ url "history" }> История </a></li>-->
             <li><a href={% url "faqs" %}> ЧаВо </a></li>
-            <li><a href={% url "send_application" %} class=send_link> Подать заявку  </a> </li>
+            <li><a href={% url "send_application" %} class="send_link_left"> Подать заявку  </a> </li>
           </ul>
         </div>
-        <!--
-        <div class="gadget">
-          <h2 class="star"><span>Sponsors</span></h2>
-          <div class="clr"></div>
-          <ul class="ex_menu">
-            <li><a href="#">Lorem ipsum dolor</a><br />
-              Donec libero. Suspendisse bibendum</li>
-            <li><a href="#">Dui pede condimentum</a><br />
-              Phasellus suscipit, leo a pharetra</li>
-            <li><a href="#">Condimentum lorem</a><br />
-              Tellus eleifend magna eget</li>
-            <li><a href="#">Fringilla velit magna</a><br />
-              Curabitur vel urna in tristique</li>
-            <li><a href="#">Suspendisse bibendum</a><br />
-              Cras id urna orbi tincidunt orci ac</li>
-            <li><a href="#">Donec mattis</a><br />
-              purus nec placerat bibendum</li>
-          </ul>
-        </div> -->
       </div>
       <div class="clr"></div>
     </div>
@@ -140,12 +114,7 @@
       <div class="col c1">
         <h2><span>Галерея</span></h2>
         <div class="thumbs" data-gallery="one">
-          <!--<a href={% static 'main/images/gallery/gal1.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal1.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal2.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal2.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal3.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal3.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal4.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal4.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal5.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal5.jpg' %}); width:75px; height:75px;" class="gal"> </a>
-          <a href={% static 'main/images/gallery/gal6.jpg' %}  style="background-image:url({% static 'main/images/gallery/gal6.jpg' %}); width:75px; height:75px;" class="gal"> </a> -->
+
           {% for img in common_gallery %}
 
             {% if forloop.counter < 7 %}
@@ -202,8 +171,6 @@
   <div class="footer">
     <div class="footer_resize">
       <p class="lf">Домен &copy; <a href="#">labson.ru</a>. Все права защищены</p> 
-      <!-- <p class="rf">Get More <a target="_blank" href="http://www.free-css.com/">Free CSS Templates</a> By <a target="_blank" href="http://www.dreamtemplate.com/">DreamTemplate</a></p> -->
-
     </div>
   </div>
 </div>

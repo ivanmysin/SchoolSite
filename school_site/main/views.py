@@ -9,6 +9,10 @@ from django.views.generic import TemplateView
 import smtplib
 from email.message import EmailMessage
 from school_site import myconfig
+import time
+import timeout_decorator
+
+
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -106,10 +110,10 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
                     "text": "Подтверждение отправлено на почту {}. Если письмо не пришло, проверьте спам.".format(accepted_data["email"]),
                 }, ]
 
-            except ZeroDivisionError:
+            except:
                 texts_page = [{
                     "title": "Форма содержит ошибки!",
-                    "text": "",
+                    "text": "Попробуйте заполнить форму еще раз",
                 }, ]
 
         return texts_page
@@ -181,11 +185,8 @@ class FAQView(TemplateView, NavView, ContactsView, Galleries):
         # context["title_of_page"] = "Частые вопросы"
         return context
 
-
+@timeout_decorator.timeout(15)
 def send_email(form_data):
-
-
-
     sender_email_address = myconfig.sender_email_address
     receiver_email_address = form_data["email"]
     email_smtp = myconfig.email_smtp
