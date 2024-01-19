@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -140,3 +141,12 @@ STATIC_ROOT = tmp + "/static/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Content Security Policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", "*")
+CSP_STYLE_SRC_ATTR = ("'unsafe-inline'", )
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', )
+CSP_SCRIPT_SRC = ("'self'", "127.0.0.1", 'labson.ru', 'www.labson.ru', 'mc.yandex.ru')
+
+CSP_INCLUDE_NONCE_IN = ['script-src', 'style-src']
