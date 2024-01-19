@@ -16,7 +16,8 @@ import timeout_decorator
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["nav_links"] = SiteMenu.objects.filter(is_show_top=True).order_by("order") | SiteMenu.objects.filter(is_show_left=True).order_by("order")
+        context["nav_links_top"] = SiteMenu.objects.filter(is_show_top=True).order_by("order")
+        context["nav_links_left"] = SiteMenu.objects.filter(is_show_left=True).order_by("order")
 
         context["debug"] = settings.DEBUG
 

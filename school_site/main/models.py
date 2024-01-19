@@ -9,9 +9,9 @@ class SiteMenu(models.Model):
     id = models.AutoField(primary_key=True)
 
     name = models.CharField('Отображение на сайте', max_length=50, blank=False)
-    link = models.CharField('Ссылка (на английском)', max_length=50, blank=False)
+    link = models.CharField('Ссылка (на английском)', max_length=50, blank=True, unique=True)
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
-    page_type = models.CharField('Тип страницы', max_length=250, blank=False, choices=pages_types)
+    page_type = models.CharField('Тип страницы', max_length=250, blank=False, choices=pages_types, default="text")
     is_show_top = models.BooleanField('Отображать на верхней панели?', blank=True, default=True)
     is_show_left = models.BooleanField('Отображать на левой панели?', blank=True, default=True)
 

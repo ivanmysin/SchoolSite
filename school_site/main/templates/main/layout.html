@@ -28,15 +28,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"  content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0" />
 <link href="{% static 'main/styles/style.css' %}" rel="stylesheet" type="text/css" />
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'main/styles/coin-slider.css' %}" /> -->
 <link href="{% static 'main/styles/sss.css' %}" rel="stylesheet" type="text/css" media="all">
 <link href="{% static 'main/styles/chosen.css' %}" rel="stylesheet" type="text/css" media="all">
 <link href="{% static 'main/styles/touchTouch.css' %}" rel="stylesheet" type="text/css" media="all">
-<!-- <script type="text/javascript" src="js/cufon-yui.js"></script> -->
-<!-- <script type="text/javascript" src="{% static 'main/js/droid_sans_400-droid_sans_700.font.js' %}"></script>-->
-<!-- <script type="text/javascript" src="{% static 'main/js/jquery-1.4.2.min.js' %}"></script> -->
+
 <script type="text/javascript" src="{% static 'main/js/jquery-1.9.0.min.js' %}"></script>
-<!-- <script type="text/javascript" src="{% static 'main/js/coin-slider.min.js' %}"></script> -->
 <script type="text/javascript" src="{% static 'main/js/sss.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'main/js/parsley.min.js' %}"></script>
 
@@ -65,17 +61,17 @@
     <div class="clr"></div>
     <div class="menu_nav">
         <ul>
-          <li><a href="{% url 'home' %}"><span>Главная</span></a></li>
-          <li><a href="{% url 'orgs' %}"><span>Организаторы</span></a></li>
-          <li><a href="{% url 'lectors' %}"><span>Лекторы</span></a></li>
-          <!--<li><a href="{ url 'history' }"><span>История</span></a></li>
+          <!--<li><a href="home><span>Главная</span></a></li>
+          <li><a  orgs' }"><span>Организаторы</span></a></li>
+          <li><a  lectors' }"><span>Лекторы</span></a></li>
+          <li><a  history' }"><span>История</span></a></li>
 
-          <li><a href="{ url "partners" }"><span>Партнеры</span></a></li>
-          <li><a href="{ url "dates" }"><span>Ключевые даты</span></a></li>
-          <li><a href="{ url "payment" }"><span>Оргвзносы</span></a></li>
+          <li><a partners><span>Партнеры</span></a></li>
+          <li><a dates ><span>Ключевые даты</span></a></li>
+          <li><a payment ><span>Оргвзносы</span></a></li>
 
           <li><a href="{% url "faqs" %}"><span>Чаво</span></a></li> -->
-          {% for nav_link in nav_links %}
+          {% for nav_link in nav_links_top %}
             <li><a href="{{nav_link.link}}"><span>{{nav_link.name}}</span></a></li>
           {% endfor %}
           <li><a href={% url "send_application" %} class="send_link"> Подать заявку  </a> </li>
@@ -116,7 +112,9 @@
           <h2 class="star"><span>Меню</span></h2>
           <div class="clr"></div>
           <ul class="sb_menu">
-            <li><a href={% url "home" %}> Главная </a></li>
+            {% for nav_link in nav_links_left %}
+              <li><a href="{{nav_link.link}}"><span>{{nav_link.name}}</span></a></li>
+            {% endfor %}
             <li><a href={% url "orgs" %}> Организаторы</a></li>
             <li><a href={% url "lectors" %}> Лекторы </a> </li>
             <li><a href={% url "partners" %}> Партнеры</a></li>
