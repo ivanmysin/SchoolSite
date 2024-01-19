@@ -4,7 +4,14 @@ from ckeditor.fields import RichTextField
 
 
 class SiteMenu(models.Model):
-    pages_types = [ ("text", "Текст"), ("list_with_photo", "Список с фото"),]
+    pages_types = [
+        ("text", "Текст"),
+        ("list_with_photo", "Список с фото"),
+        ("list_with_accordion", "Список с раскрывающимися элементами"),
+        ("form", "Форма заявки"),
+        ("dates", "Даты"),
+        ("contacts", "Контакты"),
+    ]
 
     id = models.AutoField(primary_key=True)
 
