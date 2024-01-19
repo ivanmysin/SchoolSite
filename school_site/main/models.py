@@ -255,8 +255,8 @@ class TextPage(models.Model):
     #page = models.CharField('Страница, на которой будет отображаться', max_length=250, blank=False, choices=pages )
     page = models.ForeignKey(SiteMenu, on_delete=models.CASCADE)
 
-    path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
-    images = models.ManyToManyField(Gallery)
+    # path_to_photo = models.ImageField('Фото', upload_to='./static/main/images/partners_photo/', blank=True, default="")
+    images = models.ManyToManyField(Gallery, blank=True, default="")
     order = models.IntegerField('Порядковый номер при отображении на сайте', default=100)
     is_show = models.BooleanField('Отображать на сайте?', default=True)
 
