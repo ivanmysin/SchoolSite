@@ -6,24 +6,13 @@ from django.db.utils import OperationalError
 
 from .models import SiteMenu
 
-"""
-    pages_types = [
-        ("text", "Текст"),
-        ("list_with_photo", "Список с фото"),
-        ("list_with_accordion", "Список с раскрывающимися элементами"),
-        ("form", "Форма заявки"),
-        ("dates", "Даты"),
-        ("contacts", "Контакты"),
-    ]
-"""
-
-
 url_menu = []
 try:
     menu_q = SiteMenu.objects.filter(is_show_top=True) | SiteMenu.objects.filter(is_show_left=True)
     for menu in menu_q.values():
         if menu["page_type"] == "text":
             url_menu.append( path(menu["link"], views.TextPageView.as_view(), name=menu["link"]) )
+
         elif menu["page_type"] == "list_with_photo":
             url_menu.append(path(menu["link"], views.ListPageView.as_view(), name=menu["link"]))
         elif menu["page_type"] == "list_with_accordion":
@@ -41,7 +30,7 @@ except OperationalError:
 
 
 urlpatterns = ([
-    # path("", views.TextPageView.as_view(), name='home'),
+    path("", views.TextPageView.as_view(), name='home'),
     # path("dates", views.DatesView.as_view(), name='dates'),
     # path("orgs", views.ListPageView.as_view(), name='orgs'),
     # path("lectors", views.ListPageView.as_view(), name='lectors'),

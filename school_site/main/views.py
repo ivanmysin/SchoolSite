@@ -16,8 +16,16 @@ import timeout_decorator
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["nav_links_top"] = SiteMenu.objects.filter(is_show_top=True).order_by("order")
-        context["nav_links_left"] = SiteMenu.objects.filter(is_show_left=True).order_by("order")
+        context["nav_links_top"] = SiteMenu.objects.filter(is_show_top=True).order_by("order").values()
+
+        for nav_el in context["nav_links_top"]:
+            if nav_el["link"] == "":
+                nav_el["link"] = "home"
+
+        context["nav_links_left"] = SiteMenu.objects.filter(is_show_left=True).order_by("order").values()
+        for nav_el in context["nav_links_left"]:
+            if nav_el["link"] == "":
+                nav_el["link"] = "home"
 
         context["debug"] = settings.DEBUG
 
@@ -45,15 +53,15 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
 
         path = self.request.path.split(" ")[0][1:]
 
-
-
         try:
+            if path == "":
+                path = "home"
             menu = SiteMenu.objects.filter(link=path)[0]
             texts_page_query_set = TextPage.objects.filter(is_show=True, page=menu).order_by("order")
             texts_page = list( texts_page_query_set.values() )
             for tp_idx, tpqs in enumerate(texts_page_query_set):
                 texts_page[tp_idx]["images"] = tpqs.images.all().values()
-            # print(texts_page)
+
 
         except IndexError:
             texts_page = [{"title" : "Страница не найдена", "text":""}, ]
