@@ -29,6 +29,24 @@ class SiteMenu(models.Model):
         verbose_name = 'Пункт меню'
         verbose_name_plural = 'Пункты меню'
 
+
+class CommonSettings(models.Model):
+    types = [
+        ("big_title_text", "Большой текст в шапке сайта"),
+        ("little_titlt_text", "Маленькая подпись в шапке сайта"),
+        ("accept_applications", "Принимаем заявки?"),
+    ]
+
+    setting_name = models.CharField('Тип настройки', max_length=150, blank=False, unique=True, choices=types)
+    setting_value = models.CharField('Значение', max_length=150, blank=True)
+    def __str__(self):
+        return self.setting_name
+
+    class Meta:
+        verbose_name = 'Настройка'
+        verbose_name_plural = 'Общие настройки сайта'
+
+
 class Organizators(models.Model):
     role = models.CharField('Роль в оргкоммитете', max_length=50, blank=True)
     name = models.CharField('Имя', max_length=50)

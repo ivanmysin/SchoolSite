@@ -7,6 +7,7 @@
 
 
 {% block content %}
+    {% if accept_applications == 'yes' %}
     <div class="article">
         <h2><span>Форма заявки на участие в школе</span></h2>
         <div class="clr"></div>
@@ -114,5 +115,15 @@
     <script src="{% static 'main/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
     <script src="{% static 'main/js/chosen.jquery.js' %}" type="text/javascript"></script>
     <!-- <script src="docsupport/prism.js" type="text/javascript" charset="utf-8"></script> -->
-    <script src="{% static 'main/js/init.js' %}" type="text/javascript" charset="utf-8"></script> 
+    <script src="{% static 'main/js/init.js' %}" type="text/javascript" charset="utf-8"></script>
+    {% else %}
+     <div class="article">
+        <h2><span>Форма заявки на участие в школе</span></h2>
+        <div class="clr"></div>
+        <div class="post_content_no_photo">
+            <div class="clr"></div>
+            <p> Прием заявок закончился. </p>
+        </div>
+     </div>
+    {% endif %}
 {% endblock %}

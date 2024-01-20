@@ -23,10 +23,11 @@
   <!-- /Yandex.Metrika counter -->
 {% endif %}
 
-<title>{% block title %} {% endblock %}</title>
+<title>{{ title }}</title>
 <link rel="shortcut icon" href="{% static 'main/images/ico.jpg' %}" type="image/jpg">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"  content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0" />
+<meta name="viewport"  content="width=device-width, user-scalable=yes" />
+<!-- initial-scale=1.0, , maximum-scale=1.0-->
 <link href="{% static 'main/styles/style.css' %}" rel="stylesheet" type="text/css" />
 <link href="{% static 'main/styles/sss.css' %}" rel="stylesheet" type="text/css" media="all">
 <link href="{% static 'main/styles/chosen.css' %}" rel="stylesheet" type="text/css" media="all">
@@ -46,7 +47,7 @@
       $('.bs-callout-info').toggleClass('hidden', !ok);
       $('.bs-callout-warning').toggleClass('hidden', ok);
     }).on('form:submit', function() {
-      return true; // Don't submit form for this demo
+      return true;
     });
   });
 </script>
@@ -56,7 +57,7 @@
 <div class="main">
   <div class="header">
     <div class=title>
-      <span>Летняя научная школа "Введение в нейробиологию внимания и памяти" им. О.С. Виноградовой</span> <br> <span class=sub_title>5 - 16 августа 2024 г.</span>
+      <span>{{big_title_text}}</span> <br> <span class=sub_title>{{little_titlt_text}}</span>
     </div>
     <div class="clr"></div>
     <div class="menu_nav">

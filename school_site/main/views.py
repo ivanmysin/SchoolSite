@@ -3,7 +3,7 @@ import os
 from .models import Organizators, Lectors, Partners, \
         KeyDates, Faqs, TextPage, QualifyingTasks,\
         ApplicationsForParticipation, SiteMenu, QualifyingAnswers,\
-        FormatsOfParticipation, Contacts, Gallery
+        FormatsOfParticipation, Contacts, Gallery, CommonSettings
 from django.views.generic.base import ContextMixin
 from django.views.generic import TemplateView
 import smtplib
@@ -16,6 +16,13 @@ import timeout_decorator
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
         context = super().get_context_data(*args, **kwargs)
+
+        common_settings = CommonSettings.objects.all()#.values()
+        for common_setting in common_settings:
+            context[common_setting.setting_name] = common_setting.setting_value
+
+
+
         context["nav_links_top"] = SiteMenu.objects.filter(is_show_top=True).order_by("order").values()
 
         for nav_el in context["nav_links_top"]:
@@ -28,6 +35,13 @@ class NavView(ContextMixin):
                 nav_el["link"] = "home"
 
         context["debug"] = settings.DEBUG
+
+        path = self.request.path.split(" ")[0][1:]
+
+        if path == "":
+            path = "home"
+        self.active_menu = SiteMenu.objects.filter(link=path)[0]
+        context["title"] = self.active_menu.name
 
         return context
 
@@ -51,20 +65,12 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        path = self.request.path.split(" ")[0][1:]
 
-        try:
-            if path == "":
-                path = "home"
-            menu = SiteMenu.objects.filter(link=path)[0]
-            texts_page_query_set = TextPage.objects.filter(is_show=True, page=menu).order_by("order")
-            texts_page = list( texts_page_query_set.values() )
-            for tp_idx, tpqs in enumerate(texts_page_query_set):
-                texts_page[tp_idx]["images"] = tpqs.images.all().values()
-
-
-        except IndexError:
-            texts_page = [{"title" : "Страница не найдена", "text":""}, ]
+        #menu = SiteMenu.objects.filter(link=path)[0]
+        texts_page_query_set = TextPage.objects.filter(is_show=True, page=self.active_menu).order_by("order")
+        texts_page = list( texts_page_query_set.values() )
+        for tp_idx, tpqs in enumerate(texts_page_query_set):
+            texts_page[tp_idx]["images"] = tpqs.images.all().values()
 
         context["texts_page"] = texts_page
         return context
@@ -77,8 +83,6 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
     def process_participation_form(self):
 
         path = self.request.path.split(" ")[0][1:]
-
-        answers = []
 
         qualifying_answers = []
         accepted_data = {}
