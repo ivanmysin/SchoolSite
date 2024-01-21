@@ -11,7 +11,8 @@ from email.message import EmailMessage
 from school_site import myconfig
 from django.conf import settings
 import timeout_decorator
-
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 class NavView(ContextMixin):
     def get_context_data(self, *args,**kwargs):
@@ -36,12 +37,16 @@ class NavView(ContextMixin):
 
         context["debug"] = settings.DEBUG
 
-        path = self.request.path.split(" ")[0][1:]
+        self.path = self.request.path.split(" ")[0][1:]
 
-        if path == "":
-            path = "home"
-        self.active_menu = SiteMenu.objects.filter(link=path)[0]
-        context["title"] = self.active_menu.name
+        if self.path == "":
+            self.path = "home"
+
+        try:
+            self.active_menu = SiteMenu.objects.filter(link=self.path)[0]
+            context["title"] = self.active_menu.name
+        except IndexError:
+            self.active_menu = ""
 
         return context
 
@@ -66,19 +71,47 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
         context = super().get_context_data(*args, **kwargs)
 
 
+        try:
+            mess = list(messages.get_messages(self.request))[-1]
+        except IndexError:
+            mess = ""
+
+        if self.path == "accepted_application":
+            context["title"] = "Заявка получена"
+            context["texts_page"] = [{
+                 "title": "Ваша заявка успешно отправлена!",
+                 "text": mess,
+            }, ]
+            return context
+        elif self.path == "not_accepted_application":
+            context["title"] = "Заявка не получена"
+            context["texts_page"]  = [{
+                 "title": "Форма содержит ошибки!",
+                 "text": mess,
+            }, ]
+            return context
+
         #menu = SiteMenu.objects.filter(link=path)[0]
+
         texts_page_query_set = TextPage.objects.filter(is_show=True, page=self.active_menu).order_by("order")
         texts_page = list( texts_page_query_set.values() )
         for tp_idx, tpqs in enumerate(texts_page_query_set):
             texts_page[tp_idx]["images"] = tpqs.images.all().values()
 
         context["texts_page"] = texts_page
+
         return context
 
     def post(self, request, *args, **kwargs):
-        context = self.get_context_data(*args, **kwargs)
-        context["texts_page"] = self.process_participation_form()
-        return self.render_to_response(context)
+        #context = self.get_context_data(*args, **kwargs)
+        is_succsesfull_accepted = self.process_participation_form()
+
+        if is_succsesfull_accepted:
+            return HttpResponseRedirect("accepted_application")
+        else:
+            return HttpResponseRedirect("not_accepted_application")
+        #return self.render_to_response(context)
+
 
     def process_participation_form(self):
 
@@ -86,6 +119,8 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
 
         qualifying_answers = []
         accepted_data = {}
+
+        is_succsesfull_accepted = True
 
         if self.request.method == "POST" and path == "accepted_application":
             try:
@@ -111,7 +146,9 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
                 accepted_form = ApplicationsForParticipation(**accepted_data)
                 accepted_form.save()
 
+
                 for answer in qualifying_answers:
+
                     answer_dict = {
                         "participant_id": accepted_form,
                         "task_id": QualifyingTasks.objects.get(id=answer["task_id"]),
@@ -121,18 +158,15 @@ class TextPageView(TemplateView, NavView, ContactsView, Galleries):
                     ans.save()
 
                 send_email(accepted_data)
-                texts_page = [{
-                    "title": "Ваша заявка успешно отправлена!",
-                    "text": "Подтверждение отправлено на почту {}. Если письмо не пришло, проверьте спам.".format(accepted_data["email"]),
-                }, ]
+                mess = "Подтверждение отправлено на почту {}. Если письмо не пришло, проверьте спам.".format(accepted_data['email'])
+                messages.add_message(self.request, messages.SUCCESS, mess)
 
-            except:
-                texts_page = [{
-                    "title": "Форма содержит ошибки!",
-                    "text": "Попробуйте заполнить форму еще раз",
-                }, ]
 
-        return texts_page
+            except IndexError:
+                is_succsesfull_accepted = False
+                messages.add_message(self.request, messages.INFO,"При обработке формы произошли ошибки. Попробуйте заполнить еще раз.")
+
+        return is_succsesfull_accepted
 
 
 
@@ -198,10 +232,9 @@ class FAQView(TemplateView, NavView, ContactsView, Galleries):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["faqs"] = Faqs.objects.filter(is_show=True).order_by("order")
-        # context["title_of_page"] = "Частые вопросы"
         return context
 
-@timeout_decorator.timeout(15)
+#@timeout_decorator.timeout(15)
 def send_email(form_data):
     sender_email_address = myconfig.sender_email_address
     receiver_email_address = form_data["email"]
