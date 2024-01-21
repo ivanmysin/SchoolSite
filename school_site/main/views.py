@@ -251,7 +251,7 @@ def send_email(form_data):
     message['To'] = receiver_email_address
 
     # set email body text
-    with open("./main/templates/main/Confirmation_Letter.html", mode="r") as f:
+    with open(settings.BASE_DIR / "main/templates/main/Confirmation_Letter.html", mode="r") as f:
         email_body_template = f.read()
     email_body = email_body_template.format(name=form_data["name"], patronymic=form_data["patronymic"])
     message.set_content(email_body, subtype='html')
