@@ -142,6 +142,16 @@ STATIC_ROOT = tmp + "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'extraAllowedContent': 'iframe[*]',
+    },
+}
+
 # Content Security Policy
 CSP_DEFAULT_SRC = ("'self'", 'mc.yandex.ru', 'yandex.ru', 'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
 CSP_IMG_SRC = ("'self'", "*")
