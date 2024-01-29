@@ -142,6 +142,7 @@ STATIC_ROOT = tmp + "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Full',

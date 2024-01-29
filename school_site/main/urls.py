@@ -1,8 +1,9 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.db.utils import OperationalError
+from django.views.static import serve
 
 from .models import SiteMenu
 
@@ -47,3 +48,10 @@ urlpatterns = ([
     path("accepted_application", views.TextPageView.as_view(), name='not_accepted_application'),
 
 ] + url_menu + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
+
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^static/(?P<path>.*)$', serve, {
+            'document_root': settings.STATIC_ROOT,
+        }),
+    ]
