@@ -199,10 +199,10 @@ class ListPageView(TemplateView, NavView, ContactsView, Galleries):
                 data["subscript"] = data["role"]
             elif path == "lectors":
                 data["strong"] = "{} {} {}".format(data["surname"], data["name"], data["patronymic"])
-                data["subscript"] = "{}, {}".format(data["degree"], data["affilation"])
+                data["subscript"] = "{}, <br /> {}".format(data["degree"], data["affilation"])
             elif path == "partners":
                 data["strong"] = data["organization_name"]
-                data["subscript"] = data["organization_description"]
+                data["subscript"] = "{}, <br /> {}".format(data["role"], data["organization_description"])
 
             #data["subscript"] = "{} {} {}".format(data["surname"], data["name"], data["patronymic"])
         context["persons"] = data4render
