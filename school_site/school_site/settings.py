@@ -157,7 +157,7 @@ CKEDITOR_CONFIGS = {
 CSP_DEFAULT_SRC = ("'self'", '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',  'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
 CSP_IMG_SRC = ("'self'", "*")
 CSP_STYLE_SRC_ATTR = ("'unsafe-inline'", )
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', 'yandex.ru')
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', 'yandex.ru', '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr')
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', '*.yandex.ru', 'yandex.ru')
 CSP_FRAME_ANCESTORS = ("'self'", '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',   'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
 
