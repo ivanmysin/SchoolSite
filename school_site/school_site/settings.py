@@ -130,12 +130,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-# tmp = os.path.dirname(__file__)
-# tmp, _ = os.path.split(tmp)
-# tmp, _ = os.path.split(tmp)
-#
-# STATIC_ROOT = tmp + "/static/"
-STATIC_ROOT = myconfig.STATIC_ROOT
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
