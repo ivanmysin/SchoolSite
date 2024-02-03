@@ -139,22 +139,22 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Full',
-        'height': 300,
-        'width': '100%',
-        'removePlugins': 'stylesheetparser',
-        'extraAllowedContent': 'iframe[*]',
-    },
-}
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Full',
+#         'height': 300,
+#         'width': '100%',
+#         #'removePlugins': 'stylesheetparser',
+#         'extraAllowedContent': 'iframe[*]',
+#     },
+# }
 
 # Content Security Policy
-CSP_DEFAULT_SRC = ("'self'", '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',  'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
+CSP_DEFAULT_SRC = ("'self'", 'yandex.ru', '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',  'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
 CSP_IMG_SRC = ("'self'", "*")
 CSP_STYLE_SRC_ATTR = ("'unsafe-inline'", )
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', 'yandex.ru', '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr')
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "127.0.0.1", 'labson.ru', 'www.labson.ru', '*.yandex.ru', 'yandex.ru')
-CSP_FRAME_ANCESTORS = ("'self'", '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',   'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
+CSP_FRAME_ANCESTORS = ("'self'", 'yandex.ru', '*.yandex.ru', '*.yandex.com', '*.yandex.by', 'metrica.yandex.com.tr',   'vk.com', 'www.vk.com', 'youtube.com', 'www.youtube.com')
 
 CSP_INCLUDE_NONCE_IN = ['script-src', 'style-src']
