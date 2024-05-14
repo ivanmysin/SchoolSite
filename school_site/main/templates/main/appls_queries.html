@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <title> Заявки на участие в Школе  </title>
+  </head>
+  <body>
+    <H1> Заявки на участие в Школе </H1>
+    <main>
+      {% for query in applications %}
+      <div class = "priticipant">
+        <p>Время отправки заявки {{ query.sended_datetime }}</p>
+        <p> Имя {{ query.name }}</p>
+        <p> Фамилия {{ query.surname }} </p>
+        <p> Отчество {{ query.patronymic }} </p>
+        <p> ВУЗ {{ query.university }} </p>
+        <p> Факультет {{ query.faculty }}</p>
+        <p> Стадия обучения {{ query.education_stage }} </p>
+        <p> Релевантный опыт {{ query.expirience }} </p>
+        <p> О себе {{ query.about_participant }} </p>
+        <p> Желаемая форма участия {{ query.form_of_participation }} </p>
+        <p> Ответы на задачи {{ query.qualifying_answers }} </p>
+      </div>
+
+      {% endfor %}      
+    </main>
+  </body>
+</html>
